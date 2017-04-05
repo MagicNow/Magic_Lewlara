@@ -1,0 +1,91 @@
+.cliente, .usuario {
+	.filtro-grupo{
+		cursor: pointer;
+	}
+	h1 {
+		//margin-left: 5px;
+	}
+	.align-checkbox {
+		margin-top: 9px;
+		vertical-align: middle;
+	}
+	.imagem-cliente {		
+		border: 1px solid grey;
+		width: 100px;
+		max-height: 85px;
+		&:hover {
+			cursor: pointer;
+		}
+	}
+	.imagem-concorrente {		
+		border: 1px solid grey;
+		width: 100px;
+		max-height: 85px;
+		&:hover {
+			cursor: pointer;
+		}
+	}
+	.imagem-usuario {
+		border: 1px solid grey;
+		width: 50px;
+		max-height: 50px;
+		&:hover {
+			cursor: pointer;
+		}
+	}
+	form  {
+		color: #000000;
+		span.desc {
+			font-family: @font-family-arial-narrow;
+			vertical-align: middle;
+			margin-top: 7px;
+			display: inline-block;
+		}
+		small {
+			font-size: 12px;
+		}
+		.btn-file {
+		    position: relative;
+		    overflow: hidden;
+		}
+		.btn-file input[type=file] {
+		    position: absolute;
+		    top: 0;
+		    right: 0;
+		    min-width: 100%;
+		    min-height: 100%;
+		    font-size: 100px;
+		    text-align: right;
+		    filter: alpha(opacity=0);
+		    opacity: 0;
+		    outline: none;
+		    background: white;
+		    cursor: inherit;
+		    display: block;
+		}
+		.btn-lateral-form {
+			margin-left: 2%;
+			margin-top: 4px;
+		}
+		#cliente_novo_imagem_selecionada {
+			overflow: hidden;
+			line-height: 28px;
+		}
+	}	
+}
+
+
+.cliente.sucesso, .usuario.sucesso {
+	padding-left: 35px;
+	h1 {
+		margin-left: 0px;
+	}
+	.novo-usuario-sucesso, .novo-cliente-sucesso {
+		font-family: @font-family-futura;
+	}
+	.novo-usuario-sucesso-descricao, .novo-cliente-sucesso-descricao {
+		padding: 30px 15px 30px 0px;
+		margin-bottom: 30px;
+		border-bottom: 1px solid #e5e5e5;
+	}
+}

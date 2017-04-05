@@ -1,0 +1,1 @@
+$(document).ready(function(){$(".bt-editar-comentario").on("click",function(i){var n=$(this).parents("td");n.find(".box-exibir").css("display","none"),n.find(".box-editar").css("display","block")}),$(".bt-cancelar-editar-comentario").on("click",function(i){var n=$(this).parents("td");n.find(".box-editar").css("display","none"),n.find(".box-exibir").css("display","block")})});

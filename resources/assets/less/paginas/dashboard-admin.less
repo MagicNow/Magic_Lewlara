@@ -1,0 +1,297 @@
+#dashboardAdmin{
+    * {
+        word-wrap: break-word; 
+    }    
+    //3 column row, first one after the client select
+    .bloco-tipo-1 { 
+        //divs de col-4
+        > div{
+            padding-left: 5px;
+            padding-right: 5px;
+            padding-bottom: 20px;
+            
+            &:first-child  {
+                padding-left: 0px;
+                padding-right: 10px;
+            }
+
+            &:last-child  {
+                padding-left: 10px;
+                padding-right: 0px;
+            }
+            
+            //miolo das divs de col-4
+            > div{
+                background: #f9f9f9;
+                padding: 25px 10px;
+                border: 1px solid #f1f1f1;
+
+                //primeira parte do miolo das divs, com altura minima
+                >div:first-child{
+                    // height: 120px;
+                }
+                //segunda parte do miolo dessas divs, cm um border-top
+                >div:nth-child(2){
+                    border-top: 1px solid #e5e5e5;
+                    padding-top: 20px;
+                    width: 85%;
+                    margin: 0 auto;
+                    margin-top: 20px;
+                    &.sem-border{
+                        border-top: 0;
+                         padding-top: 0;
+                        margin-top: 0;
+                    }
+                }
+            }
+        }
+
+        //"já foram postados x posts..."  div col-4 + miolo + primeiro pedaço
+        > div:first-of-type  > div > div:first-of-type{
+            //número de posts
+            > p{
+                font-weight: bold;
+                font-size: 44px;
+                margin-bottom: 0px;
+            } 
+        }
+    }
+
+    //2 column row, 9 - 3, second row after the client select, posts session
+    .bloco-tipo-2 {
+        //first container tem um miolo com um anchor that floats right, last created posts container
+        > div:first-of-type{
+            //last created posts
+            > div{
+                > a.btn-pequeno.btn-preto{ float: right; margin-top: 10px;}
+                //each post
+                > div{
+                    //padding-top: 20px;
+                    //img container
+                    div:first-of-type{
+                        //img placeholder
+                        
+                    }
+                    //post content
+                    div:nth-of-type(2){
+                        //date of post
+                        p{
+                            //margin: 0px;
+                        }
+                    }
+                }
+            }
+        }
+        //second container has a border left
+        > div:nth-of-type(2){
+            border-left: 1px solid #e8e8e8;
+            //top favorited post block
+            > div{
+                //favoritado x vezes tag
+                p > span{ border-radius: 0px;  padding: 3px; font-size: 12px; }
+                display:inline-block;
+                //top favorited pots
+                > div{
+                    padding-top: 0px;
+
+                    p:first-child {
+                        margin-top: 20px;
+                    }
+                    p {
+                        margin: 0;
+                    }
+
+                    div.img-destaque {
+                        height: 100px; width: 100px; background: #f2f2f2; display: inline-block; vertical-align: middle; background-size: contain;  background-repeat: no-repeat;  background-position: center;
+                    }
+                }
+            }
+        }
+        //containers
+        > div{
+            //miolos
+            > div{
+                padding:0px;
+                //placeholder
+                img{ width: 30px; height: 30px; background: #ffff00}
+                //h4 to align with img
+                //h4{margin-bottom: 0px;display:inline-block;vertical-align:-6px;padding:0px 5px; font-family: @font-family-futura; width: 68%; font-size: 24px; font-weight: bold;}
+
+            }  
+        }
+    }
+
+    .dashboard-comentarios{
+        padding:0px 30px 0px 20px;
+        //placeholder
+        img{ width: 30px; height: 30px; background: #ffff00}
+        //h4 to align with img
+        h4{margin-bottom: 0px;display:inline-block;vertical-align:-6px;padding:0px 5px;}
+        //ver todos alinhado a direita
+        > a.btn-pequeno.btn-preto{ float: right; margin-top: 10px;}
+        //each favorite post
+        > div{
+            padding-top: 20px;
+            //img container
+            div:first-of-type{
+                //img placeholder
+                div{
+                    height: 125px; width: 125px; background: #f2f2f2; display: inline-block; vertical-align: middle;
+                }
+                div.img-destaque {
+                    height: 125px; width: 125px; background: #f2f2f2; display: inline-block; vertical-align: middle; background-size: contain;  background-repeat: no-repeat;  background-position: center;
+                }
+            }
+            //post content
+            div:nth-of-type(2){
+                //date of post
+                p{
+                    margin: 0px;
+                }
+            }
+        }
+    }
+    /*
+    
+    > div:nth-of-type(4){
+        padding:0px 30px 0px 20px;
+        //placeholder
+        img{ width: 30px; height: 30px; background: #ffff00}
+        //h4 to align with img
+        h4{margin-bottom: 0px;display:inline-block;vertical-align:-6px;padding:0px 5px;}
+        //ver todos alinhado a direita
+        > a.btn-pequeno.btn-preto{ float: right; margin-top: 10px;}
+        //each favorite post
+        > div{
+            padding-top: 20px;
+            //img container
+            div:first-of-type{
+                //img placeholder
+                div.sem-img-destaque {
+                    height: 100px; width: 100px;  display: inline-block; vertical-align: middle; border: 1px dashed #f2f2f2;
+                }
+                div.img-destaque {
+                    height: 100px; width: 100px; background: #f2f2f2; display: inline-block; vertical-align: middle; background-size: contain;  background-repeat: no-repeat;  background-position: center;
+                }
+            }
+            //post content
+            div:nth-of-type(2){
+                //date of post
+                p{
+                    margin: 0px;
+                }
+            }
+        }
+    } */
+    .bloco-6{
+        padding:0px 30px 0px 20px;
+        > div{ 
+            height: 300px;
+            padding: 0px 10px;
+            div{
+                background: #f2f2f2;
+                height: 100%;
+            }
+        }
+    }
+
+    .top-post-padding-right-20 {
+        padding-right: 20px !important;
+    }
+
+
+
+
+
+
+
+
+
+
+
+    // AJUSTES // AJUSTES // AJUSTES // AJUSTES // AJUSTES // AJUSTES // AJUSTES // AJUSTES // AJUSTES 
+
+    .ultimos-posts, .posts-destaques {        
+        h4{
+            margin-bottom: 0px;
+            display:inline-block;
+            vertical-align:-6px;
+            padding:0px 5px; 
+            font-family: @font-family-futura; 
+            width: 68%; 
+            font-size: 24px; 
+            font-weight: bold;
+        }
+
+        .btn-pequeno.btn-preto {
+            float: right;
+            margin-top: 10px;
+        }
+
+        &-cada {
+            padding-top: 30px;
+        }
+        
+        .ultimos-posts-cada:nth-of-type(odd) {
+            padding-right: 20px;
+        }
+
+        .ultimos-posts-cada:nth-of-type(even) {
+            padding-left: 20px;
+        }
+
+        .img-destaque-box {
+            position: relative;
+            float: left;
+            width: 115px;
+            height: 115px;
+            .img-destaque {
+
+            }
+        }
+
+        div.sem-img-destaque {
+            height: 115px; width: 115px;  display: inline-block; vertical-align: middle; border: 1px dashed #f2f2f2;
+        }
+        div.img-destaque {
+            height: 115px; width: 115px; background: #f2f2f2; display: inline-block; vertical-align: middle; background-repeat: no-repeat;  background-size: cover; background-position: center top;
+        }
+
+
+        .ultimos-posts-detalhes {
+            position: relative;
+            float: right;            
+            width: ~'calc(100% - 155px)';
+            p:nth-of-type(1){
+                width: ~'calc(100% + 20px)';
+                margin-left: -20px;
+                padding-left: 20px;
+                background-color: #f0f0f0;
+                color: #4f4d4d;
+                font-size: 13px;
+                font-family: @font-family-futura;
+                color: #000;
+            }
+            p:nth-of-type(2){
+                margin-top: 20px;
+                margin-bottom: 0px;
+                font-weight: bold;
+            }
+            p:nth-of-type(3){
+                margin-top: 0px;
+                margin-bottom: 20px;
+            }
+            p:nth-of-type(4){
+                margin-bottom: 0px;
+                color: #4f4d4d;
+                .btn-pequeno {
+                    min-width: 0;
+                    font-family: @font-family-futura;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+
+
+}

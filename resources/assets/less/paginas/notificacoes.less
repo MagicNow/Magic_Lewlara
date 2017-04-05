@@ -1,0 +1,96 @@
+.notificacoes {
+	.icon-notificacao {
+		background-image: url(../../img/notifications-icones.png);
+		background-size: 25px;
+		width: 25px;
+		height: 23px;
+		display: inline-block;
+		vertical-align: middle;
+		background-repeat: no-repeat;
+	}
+
+	.icon-comentario {
+		background-position: 0px 0px;
+		width: 25px;
+		height: 23px;
+	}
+
+	.icon-favorito {
+		background-position: 0px -95px;
+		width: 25px;
+		height: 23px;
+	}
+
+	.icon-publicou-post {
+		background-position: 0px -24px;
+		width: 25px;
+		height: 23px;
+	}
+
+	.icon-editou-post {
+		background-position: 0px -71px;
+		width: 25px;
+		height: 23px;
+	}
+
+	td.notificacao-item {
+		a {
+			color: inherit;
+			text-decoration: underline;
+		}
+	}
+
+
+	// DISPARAR NOTIFICAÇÃO
+
+	&.pessoas {
+	    .titulo {
+	        padding: 1%;
+	        padding-top: 20px;
+	        padding-bottom: 20px;
+	    }
+	    .pessoa {
+	        &:nth-child(odd){
+	            padding-right: 20px;
+	        }
+	        .borda {
+	            border-top: 1px solid #e5e5e5;   
+	            padding: 1%;
+	            padding-top: 20px;
+	            padding-bottom: 20px;
+	            height: 90px;
+	            vertical-align: middle;
+	            line-height: 48px;
+	        }
+
+	        .imagem-usuario {
+	            border: 1px solid grey;
+	            width: 50px;
+	            max-height: 50px;
+	            &:hover {
+	                cursor: pointer;
+	            }
+	        }
+	    }
+	    // sucesso
+	    .posts-selecionados {
+	        border-top: 1px solid #e5e5e5;   
+	        padding: 20px 0;
+	    }
+	    .pessoas-selecionadas {
+	        border-top: 1px solid #e5e5e5;   
+	        padding: 20px 0;
+	        padding-right: 20px;
+
+	        .imagem-usuario {
+	            border: 1px solid grey;
+	            width: 50px;
+	            max-height: 50px;
+	            &:hover {
+	                cursor: pointer;
+	            }
+	        }
+	    }
+	}
+
+}

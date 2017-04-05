@@ -1,0 +1,247 @@
+#dashboardNonAdmin{
+    //3 column row, first one after the client select
+    * {
+        word-wrap: break-word; 
+    }
+    .btn-preto{
+        margin-left: 10px;
+        min-width: initial;
+    }
+
+    .bloco-tipo-1 { 
+        //divs de col-6
+        > div {
+            padding: 20px;
+
+            &:first-child {
+                padding-left: 0;
+            }
+
+            &:last-child {
+                padding-right: 0;
+            }
+
+            //miolo das divs de col-6
+            > div{
+                background: #f9f9f9;
+                padding: 20px 10px 40px 10px;
+                border: 1px solid #f1f1f1;
+
+                //primeira parte do miolo das divs, com altura minima
+                >div:first-child{
+                    //placeholder de image
+                    img{ width: 30px; height: 30px; background: #ffff00}
+                    //titulo seguido da imagem alinhado verticalmente
+                    h4{margin-bottom: 0px;display:inline-block;vertical-align:-6px;padding:0px 5px; font-family: @font-family-futura; font-size: 24px;}
+                    //p da data n pode ter margin
+                    > p:first-of-type{margin: 0px;}
+                    //p da desc espaçado pra cima e pra baixo
+                    > p:nth-of-type(2){ margin: 20px 0px 15px 0px; }
+                    //data do post
+                    b{margin-bottom: 5px; font-size: 13px;}
+                }
+                //segunda parte do miolo dessas divs, cm um border-top
+                >div:nth-child(2){
+                    //border-top: 1px solid #e5e5e5;
+                    padding-top: 20px;
+                    width: 85%;
+                    margin: 0 auto;
+                }
+            }
+        }
+    }
+
+    //2 column row, 9 - 3, second row after the client select, posts session
+    .bloco-tipo-2{
+        //first container tem um miolo com um anchor that floats right, last created posts container
+        > div{
+            //last created posts
+            > div{
+                > a.btn-pequeno.btn-preto{ float: right; margin-top: 10px;}
+                //each post
+                > div{
+                    padding-top: 20px;
+                    
+                    //post content
+                    div:nth-of-type(2){
+                        //date of post
+                        p{
+                            margin: 0px;
+                        }
+                    }
+                }
+            }
+        }
+        //second container has a border left
+        > div:nth-of-type(2){
+            border-left: 1px solid #e8e8e8;
+        }
+        //containers
+        > div{
+            //miolos
+            > div{
+                
+                //placeholder
+                img{ width: 30px; height: 30px; background: #ffff00; vertical-align: bottom;}
+                //h4 to align with img
+                
+
+            }  
+        }
+
+
+
+        // PÓS AJUSTES
+        h4{
+            margin-bottom: 0px;display:inline-block;vertical-align:-6px;padding: 0 0 0 5px; font-family: @font-family-futura; width: ~'calc(100% - 35px)'; font-size: 24px; font-weight: bold;
+        }
+
+        .btn-pequeno.btn-preto {
+            float: right;
+            margin-top: 10px;
+        }
+
+        &-cada {
+            padding-top: 30px;
+        }
+        
+        
+        .img-destaque-box {
+            position: relative;
+            float: left;
+            width: 90px;
+            height: 90px;
+            div.sem-img-destaque {
+                height: 90px; width: 90px;  display: inline-block; vertical-align: middle; border: 1px dashed #f2f2f2;
+            }
+            div.img-destaque {
+                height: 90px; width: 90px; background: #f2f2f2; display: inline-block; vertical-align: middle; background-repeat: no-repeat;  background-size: cover; background-position: center top;
+            }
+        }
+
+        
+
+
+        .posts-detalhes {
+            position: relative;
+            float: right;            
+            width: ~'calc(100% - 110px)';
+            p:nth-of-type(1){
+                width: ~'calc(100% + 20px)';
+                margin-left: -20px;
+                padding-left: 22px;
+                //background-color: #f0f0f0;
+                color: #4f4d4d;
+                font-size: 13px;
+                font-family: @font-family-futura;
+                color: #000;
+            }
+            p:nth-of-type(2){
+                margin-top: 0px;
+                margin-bottom: 0px;
+                font-weight: bold;
+            }
+            p:nth-of-type(3){
+                margin-top: 0px;
+                margin-bottom: 0px;
+                padding-left: 1px;
+            }
+            p:nth-of-type(4){
+                margin-bottom: 0px;
+                color: #4f4d4d;
+                .btn-pequeno {
+                    margin-top: 15px;
+                    min-width: 0;
+                    font-family: @font-family-futura;
+                    font-weight: bold;
+                }
+            }            
+        }
+
+        // lado esquerdo
+        > div::nth-of-type(1) {
+            > div {
+                padding:0px 20px 0px 0px;
+            }
+        }
+        // lado direito
+        > div:nth-of-type(2) {
+
+            > div {
+                padding:0px 0px 0px 20px;
+            }
+
+            h4 { 
+                width: 280px;
+            }
+        }
+    }
+
+    .bloco-tipo-3{
+        padding:0px;
+        //placeholder
+        img{ width: 30px; height: 30px; background: #ffff00}
+        //h4 to align with img
+        h4{margin-bottom: 0px;display:inline-block;vertical-align:-6px;padding:0px 5px;}
+        //ver todos alinhado a direita
+        > a.btn-pequeno.btn-preto{ float: right; margin-top: 10px;}
+        //each favorite post
+        > div{
+            padding-top: 20px;            
+            //post content
+            div:nth-of-type(2){
+                //date of post
+                p{
+                    margin: 0px;
+                }
+            }
+        }
+
+        .img-destaque-box {
+            position: relative;
+            float: left;
+            width: 90px;
+            height: 90px;
+            div.sem-img-destaque {
+                height: 90px; width: 90px;  display: inline-block; vertical-align: middle; border: 1px dashed #f2f2f2;
+            }
+            div.img-destaque {
+                height: 90px; width: 90px; background: #f2f2f2; display: inline-block; vertical-align: middle; background-repeat: no-repeat;  background-size: cover; background-position: center top;
+            }
+        }
+
+
+        .posts-detalhes {
+            position: relative;
+            float: right;            
+            width: ~'calc(100% - 110px)';
+            p:nth-of-type(1){
+                width: ~'calc(100% + 20px)';
+                margin-left: -20px;
+                padding-left: 22px;
+                //background-color: #f0f0f0;
+                color: #4f4d4d;
+                font-size: 13px;
+                font-family: @font-family-futura;
+                color: #000;
+            }          
+        }
+    }
+
+
+    /* .bloco-5{
+        padding:0px 30px 0px 20px;
+        > div{ 
+            height: 300px;
+            padding: 0px 10px;
+            div{
+                background: #f2f2f2;
+                height: 100%;
+            }
+        }
+    } */
+
+    .top-post-padding-right-20 {
+        padding-right: 20px !important;
+    }
+}
