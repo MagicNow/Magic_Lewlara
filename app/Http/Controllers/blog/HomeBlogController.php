@@ -156,6 +156,7 @@ class HomeBlogController extends Controller {
 			$posts_categoria = Post::ClienteSlug($this->cliente_default->slug)->CategoriaSlug($categoria->slug)->orderBy('publicar_em', 'desc')->paginate($por_pagina);
 			$subcategoria_ativa = null;
 		} else {
+			// filter using categoria and subcategory
 			$posts_categoria = Post::ClienteSlug($this->cliente_default->slug)
 									->CategoriaSlug($categoria->slug)
 									->SubcategoriaSlug($subcategoria_ativa->slug)

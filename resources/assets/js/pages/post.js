@@ -70,7 +70,7 @@ $(document).ready(function () {
             ['img', ['src','style','rel','width','height']]
         ],
         buttonsHide: ['unorderedlist', 'orderedlist', 'outdent', 'indent'],
-        plugins: ['underline', 'video', 'fontsize', 'fontcolor'],
+        plugins: ['underline', 'video', 'fontsize', 'fontcolor', 'alignment'],
         imageEditable: true,
         imageLink: true,
         imagePosition: true
@@ -79,56 +79,67 @@ $(document).ready(function () {
     $(".bg-textarea-editavel-toolbar.bt-bold").mousedown(function (e) {
         e.preventDefault();
         e.stopPropagation();
-        $('.re-bold').trigger('click');
+        $('.re-bold').trigger('mousedown');
     });
     $(".bg-textarea-editavel-toolbar.bt-italic").mousedown(function (e) {
         e.preventDefault();
         e.stopPropagation();
-        $('.re-italic').trigger('click');
+        $('.re-italic').trigger('mousedown');
     });
     $(".bg-textarea-editavel-toolbar.bt-underline").mousedown(function (e) {
         e.preventDefault();
         e.stopPropagation();
-        $('.re-underline').trigger('click');
+        $('.re-underline').trigger('mousedown');
     });
     $(".bg-textarea-editavel-toolbar.bt-strikeThrough").mousedown(function (e) {
         e.preventDefault();
         e.stopPropagation();
-        $('.re-deleted').trigger('click');
+        $('.re-deleted').trigger('mousedown');
     });
     $(".bg-textarea-editavel-toolbar.bt-justifyLeft").mousedown(function (e) {
         e.preventDefault();
         e.stopPropagation();
-        $('.re-alignment').trigger('click');
-        $('.redactor-dropdown-left').trigger('click');
+        $('.re-alignment').trigger('mousedown');
+        $('.redactor-dropdown-left').trigger('mousedown');
     });
     $(".bg-textarea-editavel-toolbar.bt-justifyCenter").mousedown(function (e) {
         e.preventDefault();
         e.stopPropagation();
-        $('.re-alignment').trigger('click');
-        $('.redactor-dropdown-center').trigger('click');
+        $('.re-alignment').trigger('mousedown');
+        $('.redactor-dropdown-center').trigger('mousedown');
     });
     $(".bg-textarea-editavel-toolbar.bt-justifyRight").mousedown(function (e) {
         e.preventDefault();
         e.stopPropagation();
-        $('.re-alignment').trigger('click');
-        $('.redactor-dropdown-right').trigger('click');
+        $('.re-alignment').trigger('mousedown');
+        $('.redactor-dropdown-right').trigger('mousedown');
     }); 
     $(".bt-fontSize").on('change', function (e) {       
-        $('.re-fontsize').trigger('click');
-        $('.redactor-dropdown-'+$(this).val()).trigger('click');   
+        $('.re-fontsize').trigger('mousedown');
+        $('.redactor-dropdown-'+$(this).val()).trigger('mousedown');   
         $(this).val('');     
     }); 
     $(".bt-fontColor").mousedown(function (e) {
         e.preventDefault();
         e.stopPropagation();
-        $('.re-fontcolor').trigger('click');
+        $('.re-fontcolor').trigger('mousedown');
         $('.redactor-dropdown-box-fontcolor').detach().appendTo('.toolbar-to-drop');
         $('.redactor-dropdown-box-fontcolor').css({
           "top": "60px",
           "left": "0"
         });
-    }); 
+    });
+    $(".bg-textarea-editavel-toolbar.bt-hiperlink").mousedown(function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        var $self = $(this);
+        $('.re-icon-link').trigger('mousedown');
+        $('.redactor-dropdown-box-link').css({
+            "top": $self.offset().top,
+            "left": $self.offset().left
+        });
+    });
 
     $(".bt-fontColor").click(function (e) {
         e.preventDefault();

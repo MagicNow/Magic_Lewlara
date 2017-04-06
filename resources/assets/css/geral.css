@@ -6791,6 +6791,11 @@ select.arrow-preto-amarelo-single-large {
   height: 32px;
   background-position: -330px -87px;
 }
+.bg-textarea-editavel-toolbar.bt-hiperlink {
+  width: 33px;
+  height: 32px;
+  background-position: -363px -87px;
+}
 form div.wysiwyg div.toolbar-wrap {
   margin-top: -81px;
   position: absolute;

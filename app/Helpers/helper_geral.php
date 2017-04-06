@@ -117,7 +117,7 @@ function _mes_paraNum($mes_nome){
     return $mes_num;
 }
 
-function _limpaHtmlJs($script_str,$comFormatacao=false) {
+function _limpaHtmlJs($script_str, $comFormatacao=false, $limitarParagrafo=false) {
     $script_str = htmlspecialchars_decode($script_str);
     $search_arr = array('<script', '</script>');
     $script_str = str_ireplace($search_arr, $search_arr, $script_str);
@@ -128,6 +128,14 @@ function _limpaHtmlJs($script_str,$comFormatacao=false) {
         $remove_jscode_arr[] = ($key == 0) ? $newarr[0] : $newarr[1];
     }
     $retorno = implode('', $remove_jscode_arr);
+    if ($limitarParagrafo) {
+        $retorno = str_replace('<p>', '', $retorno);
+        $retorno = str_replace('</p>', '<br>', $retorno);
+        $retorno = explode('<br>', $retorno);
+        if (count($retorno) > 0) {
+            $retorno = $retorno[0];
+        }
+    }
     if($comFormatacao){
     	return strip_tags($retorno,'<p><br><br /><br/><img>');
     } else {

@@ -371,7 +371,9 @@ body * {
   max-height: 150px;
 }
 .newsletter-gerada .box-post .img-post-destaque {
-  width: 600px;
+  display: block;
+  width: 100%;
+  height: auto;
 }
 .newsletter-gerada .box-post h2 {
   font-family: 'Arial Narrow', Arial, sans-serif;

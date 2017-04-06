@@ -32,7 +32,7 @@ $scripts = array(
                             <a href="{{action('blog\HomeBlogController@click_interna',array($cliente_default->slug,$post_mes_ano->slug))}}" class="no-item-link" title="{{ str_limit(_limpaHtmlJs($post_mes_ano->titulo), 80, '...')}}">
                                 <h4 class="media-heading titulo-post-destaque">{{ str_limit(_limpaHtmlJs($post_mes_ano->titulo), 80, '...')}} </h4>
                             </a>
-                            <p class="conteudo-post-destaque"> {{str_limit(_limpaHtmlJs($post_mes_ano->desc), 250, '...')}}</p>
+                            <p class="conteudo-post-destaque"> {{str_limit(_limpaHtmlJs($post_mes_ano->desc, false, true), 220, '...')}}</p>
                             <div class="btn btn-amarelo btn-medio align-center btn-top-post">
                                 <img src="{{ URL::to('/img/ico_categoria.png') }}" class="logo-cliente-slider"> 
                                     

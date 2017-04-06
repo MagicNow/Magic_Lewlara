@@ -20,11 +20,11 @@
 		</div><!-- /.row -->	
 		<div class="row">
 			@foreach ($newsletter->post()->get() as $post)		
-				<a target="_blank" href="{{action('blog\HomeBlogController@click_interna',array($cliente_default->slug,$post->slug))}}" class="col-sm-6  box-post">
+				<a target="_blank" href="{{action('blog\HomeBlogController@click_interna',array($cliente_default->slug,$post->slug))}}" class="col-sm-6 box-post">
 					@if (count($post->midia))
 						<?php $midia = $post->midia->first(); ?>
 						<div class="box-img-post-destaque" style="">
-							<img class="img-post-destaque" src="{{ URL::to('/').'/'.$midia->imagem }}">
+							<img class="img-post-destaque" src="{{ URL::to('/').'/'.$midia->imagem }}" width="100%" height="auto" style="width: 100%;">
 						</div><!-- /.box-img-post-destaque -->
 					@endif
 

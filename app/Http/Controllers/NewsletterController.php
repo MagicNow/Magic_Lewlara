@@ -496,6 +496,7 @@ class NewsletterController extends Controller {
             }else{
                 $titleNews = mb_strtoupper($newsletter->cliente->name).' - '.$newsletter->assunto;
             }
+
             // salva os dados do usuário para disparo do e-mail
             $dados_email = array(   
                 'msg' => $Htmlfinal,

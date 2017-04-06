@@ -74,7 +74,7 @@ $scripts = array(
                                     <p class="date-post">{!! date('d/m/Y',strtotime($posts->created_at)) !!}</p>
                                     <h4 class="media-heading titulo-post-destaque">{{ str_limit(_limpaHtmlJs($posts->titulo), 80, '...')}} </h4>
                                 </a>
-                                <p class="conteudo-post-destaque"> {{str_limit(_limpaHtmlJs($posts->desc), 250, '...')}}</p>
+                                <p class="conteudo-post-destaque"> {{str_limit(_limpaHtmlJs($posts->desc, false, true), 220, '...')}}</p>
                                 <div class="btn btn-amarelo btn-medio align-center btn-top-post">
                                     <img src="{{ URL::to('/img/ico_categoria.png') }}" class="logo-cliente-slider"> 
                                         

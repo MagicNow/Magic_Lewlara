@@ -1,1 +1,115 @@
-$(document).ready(function(){$(".aplicar-select-acao-post").on("click",function(a){var t=$(this).prev(".select-acao").val();if("excluir"==t){var e=[];if($(".post-checkbox:checked").each(function(){e.push($(this).val())}),0==e.length)return alert("selecione ao menos um post para aplicar"),!1;$.ajax({type:"POST",dataType:"html",url:baseUrl+"/post/ajax_postDestroy",data:{posts:e},success:function(a){window.location.href=window.location.href}})}else alert("selecione uma ação para aplicar")}),$(".datepicker").datepicker(),$(".bt-buscar-blog").on("click",function(a){$(".filtrar-posts-todos-posts").trigger("click")}),$(".select-categorias").on("change",function(a){var t=$(this).val();a.preventDefault();var e=$(".select-subcategorias");e.empty(),e.append('<option value="">Carregando &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</option>'),$.ajax({type:"POST",dataType:"json",url:baseUrl+"/post/ajaxSubcategoria",data:{categoria_id:t},success:function(a){var t="";t+='<option value="">Todas as subcategorias</option>',$.each(a,function(a,e){t+="<option value="+a+">"+e+"</option>"}),e.empty(),e.append(t)}})}),$(".filtrar-posts-todos-posts").on("click",function(a){var t=new Object,e=$(this).parent().find(".select-data-inicio").val();e&&""!=e.trim()&&(t.data_inicio=e);var o=$(this).parent().find(".select-data-final").val();o&&""!=o.trim()&&(t.data_final=o);var s=$(this).parent().find(".select-categorias").val();s&&""!=s.trim()&&(t.categorias=s);var i=$(this).parent().find(".select-subcategorias").val();i&&""!=i.trim()&&(t.subcategorias=i);var n=$(this).parent().find(".select-tags").val();n&&""!=n.trim()&&(t.tag=n),console.log("filtroe",t);var c=$(".filtro-buscar-blog").val();c&&""!=c.trim()&&(t.busca=c),$.ajax({type:"POST",dataType:"html",url:baseUrl+"/post/ajax_filtrosTodosPosts",data:t,success:function(a){window.location.href=window.location.pathname}})})});
+
+ //POST TODOS
+$(document).ready(function () {
+    // filtros
+    $('.aplicar-select-acao-post').on('click',function(e){
+        var acao = $(this).prev('.select-acao').val();
+        if(acao == 'excluir'){
+            var postsIds = [];
+            $('.post-checkbox:checked').each(function() {
+                postsIds.push($(this).val());
+            });            
+            if(postsIds.length == 0){
+                alert('selecione ao menos um post para aplicar');
+                return false;
+            } 
+            
+            $.ajax({
+                type: "POST",
+                dataType: "html",
+                url: baseUrl + "/post/ajax_postDestroy",
+                data: {'posts': postsIds},
+                success: function (data) {
+                    window.location.href=window.location.href;
+                }
+            });
+        } else {
+            alert('selecione uma ação para aplicar');
+        }        
+    });  
+    $('.datepicker').datepicker();
+    $('.bt-buscar-blog').on('click', function(e){
+        $('.filtrar-posts-todos-posts').trigger('click');
+    });
+
+    $('.select-categorias').on('change', function (e) {       
+        var categoria_id = $(this).val();
+        e.preventDefault();
+
+        var selectSubcategorias = $('.select-subcategorias');
+
+        selectSubcategorias.empty();
+        selectSubcategorias.append('<option value="">Carregando &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</option>');
+
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: baseUrl + "/post/ajaxSubcategoria",
+            data: {'categoria_id': categoria_id},
+            success: function (data) {
+                // popula o select com as subcategorias retornadas                
+                var listitems = '';
+                listitems += '<option value="">Todas as subcategorias</option>';
+                $.each(data, function (key, value) {
+                    listitems += '<option value=' + key + '>' + value + '</option>';
+                });
+                selectSubcategorias.empty();
+                selectSubcategorias.append(listitems);
+            }
+        });
+    });
+
+    $('.filtrar-posts-todos-posts').on('click',function(e){
+        var filtros = new Object();
+
+        var data_inicio = $(this).parent().find('.select-data-inicio').val();
+        
+        if(data_inicio && data_inicio.trim() != ''){
+            filtros.data_inicio = data_inicio;
+        }
+
+        var data_final = $(this).parent().find('.select-data-final').val();
+        
+        if(data_final && data_final.trim() != ''){
+            filtros.data_final = data_final;
+        }
+
+        var categorias = $(this).parent().find('.select-categorias').val();
+        
+        if(categorias && categorias.trim() != ''){
+            filtros.categorias = categorias;
+        }
+
+        var subcategorias = $(this).parent().find('.select-subcategorias').val();
+        
+        if(subcategorias && subcategorias.trim() != ''){
+            filtros.subcategorias = subcategorias;
+        }
+
+
+
+        var tag = $(this).parent().find('.select-tags').val();
+        
+        if(tag && tag.trim() != ''){
+            filtros.tag = tag;
+        }
+        console.log('filtroe',filtros);
+        var busca = $('.filtro-buscar-blog').val();
+
+        if(busca && busca.trim() != ''){
+            filtros.busca = busca;
+        }
+
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: baseUrl + "/post/ajax_filtrosTodosPosts",
+            data: filtros,
+            success: function (data) {
+                window.location.href=window.location.pathname;
+            }
+        });
+
+    });
+
+});

@@ -32,35 +32,39 @@ class PostController extends Controller {
         
     }
 
-    private function _rules($action = 'insert', $post = null, $cliente_id) {
+    private function _rules($action = 'insert', $post = null, $cliente_id, $rascunho) {
         // regras para validação
-        if ($action == 'insert') {
+        if ($rascunho) {
             return array(
-                //'titulo' => 'required|min:3|unique:posts,titulo,NULL,id,cliente_id,' . $cliente_id,
-                'titulo' => 'required|min:3',
-                'desc' => 'required|min:50',
-                'dia' => 'required_if:publicar-em-obrigatorio,1|numeric|min:1|max:31',
-                'mes' => 'required_if:publicar-em-obrigatorio,1|numeric|min:1|max:12',
-                'ano' => 'required_if:publicar-em-obrigatorio,1|numeric|min:2000|max:2050',
-                'hora' => 'required_if:publicar-em-obrigatorio,1|numeric|min:0|max:23',
-                'minuto' => 'required_if:publicar-em-obrigatorio,1|numeric|min:0|max:59|Dataviaparametros:'.Request::get('dia').','.Request::get('mes').','.Request::get('ano').','.Request::get('hora').','.Request::get('minuto'),                
-                'cliente_id' => 'required|exists:clientes,id',
-                'tipos_acao' => 'required',
-                'definir_destaque_imagem' => 'Postdestaque:'.Request::get('definir_destaque_imagem').','.Request::get('definir_destaque_url')
+                'titulo' => 'required|min:3'
             );
-        } else if ($action == 'update') {
-            return array(
-                //'titulo' => 'required|min:3|unique:posts,titulo,' . $post->id . ',id,cliente_id,' . $cliente_id,
-                'titulo' => 'required|min:3',
-                'desc' => 'required|min:50',
-                'dia' => 'required|numeric|min:1|max:31',
-                'mes' => 'required|numeric|min:1|max:12',
-                'ano' => 'required|numeric|min:2000|max:2050',
-                'hora' => 'required|numeric|min:0|max:23',
-                'minuto' => 'required|numeric|min:0|max:59|Dataviaparametros:'.Request::get('dia').','.Request::get('mes').','.Request::get('ano').','.Request::get('hora').','.Request::get('minuto'),
-                'cliente_id' => 'required|exists:clientes,id',
-                'tipos_acao' => 'required'
-            );
+        } else {
+            if ($action == 'insert') {
+                return array(
+                    'titulo' => 'required|min:3',
+                    'desc' => 'required|min:50',
+                    'dia' => 'required_if:publicar-em-obrigatorio,1|numeric|min:1|max:31',
+                    'mes' => 'required_if:publicar-em-obrigatorio,1|numeric|min:1|max:12',
+                    'ano' => 'required_if:publicar-em-obrigatorio,1|numeric|min:2000|max:2050',
+                    'hora' => 'required_if:publicar-em-obrigatorio,1|numeric|min:0|max:23',
+                    'minuto' => 'required_if:publicar-em-obrigatorio,1|numeric|min:0|max:59|Dataviaparametros:'.Request::get('dia').','.Request::get('mes').','.Request::get('ano').','.Request::get('hora').','.Request::get('minuto'),
+                    'cliente_id' => 'required|exists:clientes,id',
+                    'tipos_acao' => 'required',
+                    'definir_destaque_imagem' => 'Postdestaque:'.Request::get('definir_destaque_imagem').','.Request::get('definir_destaque_url')
+                );
+            } else if ($action == 'update') {
+                return array(
+                    'titulo' => 'required|min:3',
+                    'desc' => 'required|min:50',
+                    'dia' => 'required|numeric|min:1|max:31',
+                    'mes' => 'required|numeric|min:1|max:12',
+                    'ano' => 'required|numeric|min:2000|max:2050',
+                    'hora' => 'required|numeric|min:0|max:23',
+                    'minuto' => 'required|numeric|min:0|max:59|Dataviaparametros:'.Request::get('dia').','.Request::get('mes').','.Request::get('ano').','.Request::get('hora').','.Request::get('minuto'),
+                    'cliente_id' => 'required|exists:clientes,id',
+                    'tipos_acao' => 'required'
+                );
+            }
         }
     }
 
@@ -206,12 +210,6 @@ class PostController extends Controller {
 
         // array para popular o select com os clientes do usuário logado
         $select_escolha_o_cliente = _selectEscolhaOCliente();
-
-
-
-
-
-
 
         // select datas
         $select_datas_todas_disponiveis = \DB::select("SELECT DISTINCT(DATE_FORMAT(publicar_em,'%Y-%m')) as datapost FROM posts WHERE cliente_id = ? order by publicar_em desc", array($cliente_default->id));
@@ -570,7 +568,7 @@ class PostController extends Controller {
         }
 
         // efetua validação, se false volta automaticamente pra página do formulário mostrando os erros
-        $this->validateWithCustomAttribute(Request::instance(), $this->_rules('insert', null, Request::input('cliente_id')), $messages = $this->_customMessages(), $this->_customAttributes());
+        $this->validateWithCustomAttribute(Request::instance(), $this->_rules('insert', null, Request::input('cliente_id'), Request::input('rascunho')), $messages = $this->_customMessages(), $this->_customAttributes());
             
             if($midia_img == null){ // enviado via anexo da livraria library
                 if(trim(Request::input('definir_destaque_imagem')) != '' && Request::input('definir_destaque_flag_if_from_url') == 0){
@@ -884,7 +882,6 @@ class PostController extends Controller {
         $requestInput['desc'] = $this->_replaceGallery(Request::get('desc'));
         Request::replace($requestInput);
 
-
         $midia_img = null;
         if(Request::input('definir_destaque_flag_if_from_url') == 1){
             if(Request::input('definir_destaque_url') && trim(Request::input('definir_destaque_url')) != ''){
@@ -940,7 +937,7 @@ class PostController extends Controller {
         }
 
         // efetua validação, se false volta automaticamente pra página do formulário mostrando os erros
-        $this->validateWithCustomAttribute(Request::instance(), $this->_rules('update', $post, Request::input('cliente_id')), $messages = $this->_customMessages(), $this->_customAttributes());
+        $this->validateWithCustomAttribute(Request::instance(), $this->_rules('update', $post, Request::input('cliente_id'), Request::input('rascunho')), $messages = $this->_customMessages(), $this->_customAttributes());
 
 
         if($midia_img == null){ // enviado via anexo da livraria library

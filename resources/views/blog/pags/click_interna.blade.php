@@ -21,9 +21,7 @@ $scripts = array(
             @if(isset($proximo))
                 <a id="arrow-next" href="{{action('blog\HomeBlogController@click_interna',array($cliente_default->slug,$proximo))}}"></a>
             @endif
-        	 <img height='300px' src="@if($post->midia->first()) {{ URL::to('/').'/'.$post->midia->first()->imagem}}  @endif" alt="" 
-             class="img-responsive destaque-img" title="@if($post->midia->first()) {{$post->midia->first()->titulo}} @endif" >            
-             
+            <img height='300px' src="@if($post->midia->first()) {{ URL::to('/').'/'.$post->midia->first()->imagem}}  @endif" alt="" class="img-responsive destaque-img" title="@if($post->midia->first()) {{$post->midia->first()->titulo}} @endif" >
         </div>
         <div class="container-fluid conteudo-blog">
             <div class="row-fluid">

@@ -1,4 +1,4 @@
-Seu usuário no sistema LewLara foi alterado. <br /><br />
+Sua senha no Pulso da Comunicação da Lew'Lara\TBWA foi alterada.<br /><br />
 
 Dados de acesso: <br /><br />
 

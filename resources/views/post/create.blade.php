@@ -22,20 +22,23 @@ $scripts = array(
     ),
     2 => array(
         'src' => URL::to('/libs').'/redactor/plugins/fontsize.js'
-    ),    
+    ),
     3 => array(
-        'src' => URL::to('/libs').'/redactor/plugins/fontcolor.js'
-    ),    
+        'src' => URL::to('/libs').'/redactor/plugins/alignment.js'
+    ),
     4 => array(
-    	'src' => URL::to('/libs').'/dropzone/dropzone.js',
+        'src' => URL::to('/libs').'/redactor/plugins/fontcolor.js'
     ),
     5 => array(
-        'src' => URL::to('/libs').('/jscrollpane/jquery.jscrollpane.min.js')
+    	'src' => URL::to('/libs').'/dropzone/dropzone.js',
     ),
     6 => array(
-        'src' => URL::to('/libs').('/lightslider/js/lightslider.js')
+        'src' => URL::to('/libs').('/jscrollpane/jquery.jscrollpane.min.js')
     ),
     7 => array(
+        'src' => URL::to('/libs').('/lightslider/js/lightslider.js')
+    ),
+    8 => array(
         'src' => URL::to('/').elixir('js/pages/post.js')
     )
 ); 
@@ -96,7 +99,7 @@ $scripts = array(
 															{!! Form::select('bt-fontSize', array(''=>'Tamanho','s10'=>'Tamanho | 10','s11'=>'Tamanho | 11','s12'=>'Tamanho | 12','s13'=>'Tamanho | 13','s14'=>'Tamanho | 14','s15'=>'Tamanho | 15','s16'=>'Tamanho | 16','s17'=>'Tamanho | 17','s18'=>'Tamanho | 18','s19'=>'Tamanho | 19','s20'=>'Tamanho | 20','s25'=>'Tamanho | 25','s30'=>'Tamanho | 30','remove'=>'Tamanho Padrão'), null, ['class'=>'bt-fontSize form-control arrow-preto-amarelo sem-padding']) !!}  
 														</div>  
 														&nbsp; 
-														<a class="bg-textarea-editavel-toolbar bt-bold">B</a><a class="bg-textarea-editavel-toolbar bt-italic">I</a><a class="bg-textarea-editavel-toolbar bt-underline">U</a><a class="bg-textarea-editavel-toolbar bt-strikeThrough">S</a><a class="bg-textarea-editavel-toolbar bt-justifyLeft">JL</a><a class="bg-textarea-editavel-toolbar bt-justifyCenter">JC</a><a class="bg-textarea-editavel-toolbar bt-justifyRight">JR</a><a class="bg-textarea-editavel-toolbar bt-fontColor">Font Color</a>
+														<a class="bg-textarea-editavel-toolbar bt-bold">B</a><a class="bg-textarea-editavel-toolbar bt-italic">I</a><a class="bg-textarea-editavel-toolbar bt-underline">U</a><a class="bg-textarea-editavel-toolbar bt-strikeThrough">S</a><a class="bg-textarea-editavel-toolbar bt-justifyLeft">JL</a><a class="bg-textarea-editavel-toolbar bt-justifyCenter">JC</a><a class="bg-textarea-editavel-toolbar bt-justifyRight">JR</a><a class="bg-textarea-editavel-toolbar bt-fontColor">Font Color</a><a class="bg-textarea-editavel-toolbar bt-hiperlink">Hiperlink</a>
 													</div><!-- /.col-sm-12 -->
 												</div><!-- /.row -->
 											</div><!-- /.col-sm-12 -->

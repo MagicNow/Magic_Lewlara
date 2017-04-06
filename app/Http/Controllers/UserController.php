@@ -407,8 +407,8 @@ class UserController extends Controller {
 			// salva os dados do usuário para disparo do e-mail
 			$dados_email = array(   
 			    'email_destinatario'=> $usuario->email,
-			    'assunto'=>'Senha Alterada em LewLara - '.$usuario->first_name,
-			    'usuario' => $usuario->username,
+			    'assunto'=>"Senha Alterada em Pulso da Comunicação Lew'Lara\TBWA",
+			    'usuario' => $usuario->email,
 			    'senha' => $nova_senha
 			);
 	
