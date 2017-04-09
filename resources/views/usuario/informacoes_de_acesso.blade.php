@@ -18,7 +18,6 @@ $scripts = array(
 		<div class="col-sm-9  col-md-9 main usuario">
 					
 						<br />
-						
 						<h1>
 							@if (isset($cliente_default))
 								<img src="{{ URL::to('/upload/cliente').'/'.$cliente_default->slug.'/'.$cliente_default->logo }}"></img>
@@ -27,21 +26,19 @@ $scripts = array(
 						</h1>
 
 						<br />
-						
-						
-
 						<div class="row">
-							<div class="col-sm-8 sobre-linha">
+							<div class="col-sm-6 sobre-linha">
 								<span>USUÁRIOS CADASTRADOS | {{ $usuarios->total() }} | &nbsp;</span> 
 							</div><!-- /.col-sm-8 -->
 							
-							<div class="col-sm-4 alinhado-direita-padding text-right">								
-								<div class="col-sm-7 col-md-8 sem-padding">
+							<div class="col-sm-6 text-right form-filtra-usuario">
+								<div class="col-sm-4 col-md-4">
+									{!! Form::text('buscar_por', $nome, ['class'=>'buscar-por form-control arrow-preto-amarelo sem-padding', 'placeholder' => 'Buscar por nome']) !!}
+								</div><!-- /.col-md-2 --> 
+								<div class="col-sm-5 col-md-6">
 									{!! Form::select('ordenar_por', $select_ordenar_por, $default_ordenar_por, ['class'=>'ordenar-por form-control arrow-preto-amarelo sem-padding']) !!}
 								</div><!-- /.col-md-2 --> 
-								<div class="col-sm-5 col-md-4 sem-padding">
-									<button class="aplicar-ordem btn btn-preto btn-meio-medio btn-estreito">APLICAR</button>
-								</div><!-- /.col-md-2 -->
+								<button class="aplicar-ordem btn btn-preto btn-meio-medio col-sm-3 col-md-2">APLICAR</button>
 							</div><!-- /.alinhado-direita-padding -->
 						</div><!-- /.row -->
 						<div class="row">

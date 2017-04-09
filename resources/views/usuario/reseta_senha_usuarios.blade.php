@@ -10,26 +10,30 @@ $header_title = 'Resetar Senha de Usuários';
 		<div class="col-sm-9  col-md-9 main usuario">
 					
 						<br />
-						
 						<h1>
 							@if (isset($cliente_default))
 								<img src="{{ URL::to('/upload/cliente').'/'.$cliente_default->slug.'/'.$cliente_default->logo }}"></img>
 							@endif
 							RESETAR SENHA DE USUÁRIOS
 						</h1>
-
 						<br />
-						
-						
 
 						<div class="row">
-							<div class="col-sm-8 sobre-linha">
+							<div class="col-sm-6 sobre-linha">
 								<span>TODOS | {{ $usuarios->total() }} | &nbsp;</span> 
 								<span>ADMINISTRADORES | {{ $count_tipo_usuarios['admin'] }} | &nbsp;</span> 
 								<span>CLIENTES | {{ $count_tipo_usuarios['cliente'] }} | &nbsp;</span> 
 								<span>LEW LARA | {{ $count_tipo_usuarios['lewlara'] }} |</span>
 							</div><!-- /.col-sm-8 -->
-							
+							<div class="col-sm-6 text-right form-filtra-usuario">								
+								<div class="col-sm-4 col-md-4">
+									{!! Form::text('buscar_por', $nome, ['class'=>'buscar-por form-control arrow-preto-amarelo sem-padding', 'placeholder' => 'Buscar por nome']) !!}
+								</div><!-- /.col-md-2 --> 
+								<div class="col-sm-5 col-md-6">
+									{!! Form::select('ordenar_por', $ordenar_por, $default_ordenar_por, ['class'=>'ordenar-por form-control arrow-preto-amarelo sem-padding']) !!}
+								</div><!-- /.col-md-2 --> 
+								<button class="aplicar-ordem btn btn-preto btn-meio-medio col-sm-3 col-md-2">APLICAR</button>
+							</div>
 							
 						</div><!-- /.row -->
 						<div class="row">
@@ -89,8 +93,6 @@ $header_title = 'Resetar Senha de Usuários';
 													
 							</table>
 
-								
-
 							<!-- {!! str_replace('/?', '?', $usuarios->render()) !!} -->
 
 						</div><!-- /.row -->
@@ -101,10 +103,4 @@ $header_title = 'Resetar Senha de Usuários';
 							</div><!-- /.col-sm-8 -->														
 						</div><!-- /.row -->
 		</div><!-- /.main -->
-
-
-
-
-	
-
 @endsection

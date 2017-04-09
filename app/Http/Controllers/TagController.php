@@ -22,7 +22,7 @@ class TagController extends Controller {
             $this->validateWithCustomAttribute(Request::instance(), $this->_rules(), $messages=array(), $this->_customAttributes());
 
             $idcliente = Request::input('client_id');
-            
+
             if ($idtag = Request::input('tag_id')) { //se recebemos um id no post, pegamos a tag que estamos alterando...
                 $tag = Tag::findOrFail($idtag);
                 $successMessage = 'Tag alterada com sucesso!';
@@ -39,7 +39,7 @@ class TagController extends Controller {
             $cliente_default = $tag->cliente; //pegamos o cliente dono da tag que foi salva, pois mostramos o logo dele na tela de sucesso
             $callToAction = 'CADASTRAR NOVA TAG'; //mensagem do botão de retorno da tela de sucesso
             //return view('tags.success', compact('cliente_default','successMessage','callToAction'));
-            return redirect()->action('TagController@edit');
+            return redirect()->back();
     }
        
     public function edit($idcliente = null, $idtag = null){
@@ -65,9 +65,9 @@ class TagController extends Controller {
             }
             if(!$idcliente) $idcliente = $clientes_select[0]['slug']; //se não obtivemos da chamada da função um id de cliente, o id será o primeiro da lista de clientes disponiveis
             $cliente_default = Cliente::where('slug','=',$idcliente)->First(); //e aqui obtemos o objeto do que será o cliente principal da view
-            $tagList = $cliente_default->tag()->orderBy('name')->paginate(25); //e agora pegamos a lista de tags do cliente devidamente páginada          
+
+            $tagList = $cliente_default->tag()->orderBy('name')->paginate(25); //e agora pegamos a lista de tags do cliente devidamente páginada
             if(!isset($idtag)) $tag = new Tag(); //se não temos uma tag para mostrar, mostraremos esse objeto vazio para evitar o problema de Undefined variable: tag 
-            
             return view('tags.edit', compact('clientes_select', 'tag', 'cliente_default', 'clientes_array','tagList','submitText'));   
     }
 

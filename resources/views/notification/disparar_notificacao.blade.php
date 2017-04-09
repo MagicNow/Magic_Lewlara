@@ -44,11 +44,17 @@ $header_title = 'Disparar Notificação';
 								<br>
 								{!! Form::select('post', $select_posts, null, ['class'=>'form-control arrow-preto-amarelo-single form-control-pequeno']) !!}
 							</div><!-- /.col-sm-4 -->
+							<div class="col-sm-6 col-sm-offset-2 text-right form-filtra-usuario">
+								<div class="col-sm-7 col-md-8">
+									{!! Form::text('buscar_por', NULL, ['class'=>'buscar-por-inline form-control arrow-preto-amarelo sem-padding', 'placeholder' => 'Buscar por nome']) !!}
+								</div>
+								<button class="aplicar-ordem-inline btn btn-preto btn-meio-medio col-sm-5 col-md-4">APLICAR</button>
+							</div>
 						</div><!-- /.row -->
 
 						<br>
 
-						<div class="row">
+						<div class="row lista-container">
 
 							<div class="col-sm-12 font-arial-narrow text-bold anula-padding">
 								<div class="col-sm-6 anula-padding titulo">
@@ -60,7 +66,8 @@ $header_title = 'Disparar Notificação';
 							<?php $n = 0; ?>
 							@if (count($pessoas))								
 								@foreach ($pessoas as $pessoa)
-									<div class="<?php echo ($n%2) ? 'col-sm-5 col-sm-offset-1' : 'col-sm-6' ?> pessoa">		<div class="borda">
+									<div class="col-sm-6 pessoa lista-item">
+										<div class="borda lista-item-label">
 											{!! Form::checkbox('pessoas[]', $pessoa->id, false, ['class'=>'checkable']) !!}
 
 											@if ($pessoa->photo)

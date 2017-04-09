@@ -31,21 +31,22 @@ $scripts = array(
 					
 
 						<div class="row">
-							<div class="col-sm-8 sobre-linha">
+							<div class="col-sm-6 sobre-linha">
 								<span class="filtro-grupo" data-grupo='Todos'>TODOS | {{ $usuarios->total() }} | &nbsp;</span> 
 								<span class="filtro-grupo" data-grupo='Admin'>ADMINISTRADORES | {{ $count_admin }} | &nbsp;</span> 
 								<span class="filtro-grupo" data-grupo='Cliente'>CLIENTES | {{ $count_cliente }} | &nbsp;</span> 
 								<span class="filtro-grupo" data-grupo='LewLara'>LEW LARA | {{ $count_lewlara }} |</span>
 							</div><!-- /.col-sm-8 -->
-							
-							<div class="col-sm-4 alinhado-direita-padding text-right">								
-								<div class="col-sm-7 col-md-8 sem-padding">
+
+							<div class="col-sm-6 text-right form-filtra-usuario">
+								<div class="col-sm-4 col-md-4">
+									{!! Form::text('buscar_por', $nome, ['class'=>'buscar-por form-control arrow-preto-amarelo sem-padding', 'placeholder' => 'Buscar por nome']) !!}
+								</div><!-- /.col-md-2 --> 
+								<div class="col-sm-5 col-md-6">
 									{!! Form::select('ordenar_por', $ordenar_por, $default_ordenar_por, ['class'=>'ordenar-por form-control arrow-preto-amarelo sem-padding']) !!}
 								</div><!-- /.col-md-2 --> 
-								<div class="col-sm-5 col-md-4 sem-padding">
-									<button class="aplicar-ordem btn btn-preto btn-meio-medio btn-estreito">APLICAR</button>
-								</div><!-- /.col-md-2 -->
-							</div><!-- /.alinhado-direita-padding -->
+								<button class="aplicar-ordem btn btn-preto btn-meio-medio col-sm-3 col-md-2">APLICAR</button>
+							</div>
 						</div><!-- /.row -->
 						<div class="row">
 							<table class="col-sm-12 com-paginacao">

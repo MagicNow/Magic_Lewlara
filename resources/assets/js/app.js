@@ -127,41 +127,25 @@ $(document).ready( function() {
             list.filter('[data-group*="' + grupo + '"]').show();
         });
     }
-    
-  
   });
+
+  $('.form-filtra-usuario').find('.buscar-por').on('keypress', function (e) {
+    if (e.which === 13) {
+      aplicarFiltro(e);
+    }
+  });
+
   // Ordenar por
-  $('.aplicar-ordem').on('click', function(e){    
-    e.preventDefault();
+  $('.aplicar-ordem').on('click', aplicarFiltro);
 
-    var ordenarpor = $(this).parent().parent().find('.ordenar-por').val();
-    var filtrarporcliente = false;
-    
-    if($('.topo_filtrar_por_cliente').length){ // se tem filtro por cliente
-      filtrarporcliente = $('.topo_filtrar_por_cliente').val();
+  $('.form-filtra-usuario').find('.buscar-por-inline').on('keypress', function (e) {
+    if (e.which === 13) {
+      aplicarFiltroInline(e);
     }
-
-    if(ordenarpor==''){
-      ordenarpor = 'az';
-    }
-    var url = window.location.origin+window.location.pathname;
-
-    // urlParams está na view footer, é um array contendo todos os parametros da url
-    for (var i = urlParams.length - 1; i >= 0; i--) {
-      url = url.replace('/'+urlParams[i],'');
-    };
-    // adiciona na url o ordenar por
-    url = url+'/'+ordenarpor;
-    // se houver filtro por cliente , adiciona na url
-    if(filtrarporcliente){
-      url = url+'/'+filtrarporcliente;
-    }
-    // adiciona na url o searh ( ?page=2 )
-    //url = url+window.location.search;
-
-    window.location = url;   
-    
   });
+
+  // Ordenar por em telas com checkbox
+  $('.aplicar-ordem-inline').on('click', aplicarFiltroInline);
 
   // Somente Filtrar por Cliente no OnChange
   $('.filtrar_por_cliente.acaoOnChange').on('change', function(e){    
@@ -302,14 +286,69 @@ $(document).ready( function() {
 
 });
 
+function atualizaParametroUrl(uri, key, value) {
+  var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+  var separator = uri.indexOf('?') !== -1 ? "&" : "?";
+  if (uri.match(re)) {
+    return uri.replace(re, '$1' + key + "=" + value + '$2');
+  } else {
+    return uri + separator + key + "=" + value;
+  }
+}
 
+function aplicarFiltro(e) {
+  e.preventDefault();
 
+  var form = $('.form-filtra-usuario');
+  var ordenarpor = form.find('.ordenar-por').val();
+  var buscarpor = form.find('.buscar-por').val();
+  var filtrarporcliente = false;
 
+  if($('.topo_filtrar_por_cliente').length){ // se tem filtro por cliente
+    filtrarporcliente = $('.topo_filtrar_por_cliente').val();
+  }
 
+  if(ordenarpor == ''){
+    ordenarpor = 'az';
+  }
 
+  var url = window.location.origin+window.location.pathname;
 
+  // urlParams está na view footer, é um array contendo todos os parametros da url
+  for (var i = urlParams.length - 1; i >= 0; i--) {
+    url = url.replace('/'+urlParams[i],'');
+  };
+  // adiciona na url o ordenar por
+  url = url+'/'+ordenarpor;
+  // se houver filtro por cliente , adiciona na url
+  if(filtrarporcliente){
+    url = url+'/'+filtrarporcliente;
+  }
+  // adiciona na url o searh ( ?page=2 )
+  //url = url+window.location.search;
 
+  if (buscarpor) {
+    url = atualizaParametroUrl(url, 'nome', buscarpor);
+  }
 
+  window.location = url;
+}
 
+function aplicarFiltroInline (e) {
+  e.preventDefault();
+  e.stopPropagation();
 
+  var form = $('.form-filtra-usuario');
+  var lista = $('.lista-container');
+  var itens = lista.find('.lista-item');
+  var buscarpor = form.find('.buscar-por-inline').val();
 
+  if (buscarpor.length > 0) {
+    itens.hide();
+    itens.find('.lista-item-label:contains("' + buscarpor.toUpperCase() + '")').parent('.lista-item').show();
+  } else {
+    itens.show();
+  }
+
+  return false;
+}

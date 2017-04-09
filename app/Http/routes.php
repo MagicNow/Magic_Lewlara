@@ -261,7 +261,7 @@ Route::post('disparar-notificacao', ['uses' => 'NotificationController@registrar
 Route::get('usuario/novo', ['as' => 'usuario_novo', 'uses' => 'UserController@create', 'middleware' => 'ifAdminOrUsuario']);
 Route::post('usuario/novo', ['as' => 'usuario_novo_post', 'uses' => 'UserController@store', 'middleware' => 'ifAdminOrUsuario']);
 // RESETAR SENHA
-Route::get('usuario/resetar-senha/{default_filtrar_por_cliente?}', ['as' => 'usuario_resetar_senha', 'uses' => 'UserController@resetarSenhaUsuarios', 'middleware' => 'ifAdminOrUsuario']);
+Route::get('usuario/resetar-senha/{default_ordenar_por?}/{default_filtrar_por_cliente?}', ['as' => 'usuario_resetar_senha', 'uses' => 'UserController@resetarSenhaUsuarios', 'middleware' => 'ifAdminOrUsuario']);
 Route::get('usuario/resetar-senha/{usuario_id}/resetar', ['as' => 'usuario_resetar_senha_post', 'uses' => 'UserController@resetarSenhaUsuariosEnvia', 'middleware' => 'ifAdminOrUsuario']);
 Route::get('usuario/resetar-senha-sucesso', [ function() {
         return view('usuario.mensagem_sucesso_resetar_senha');

@@ -33,7 +33,7 @@ class UserController extends Controller {
 	}
 
 
-	public function usuariosPorCliente($default_ordenar_por=null,$cliente_default=null)
+	public function usuariosPorCliente(Request $request, $default_ordenar_por = null, $cliente_default = null)
 	{  	
 		$por_pagina = 15;
 
@@ -43,44 +43,30 @@ class UserController extends Controller {
 		    return Redirect::action('UserController@usuariosPorCliente', array('az', $cliente_default->slug));
 		} else {
 		    $cliente_default = _clienteDefault($cliente_default);
-		}  
-
+		}
 	
-		$usuarios_sem_paginacao = User::clienteSlug($cliente_default->slug)->get();
-		// há os dois filtros, tanto ordenar por quanto por cliente
-		switch ($default_ordenar_por) {
-		    case 'az':
-				$usuarios = User::clienteSlug($cliente_default->slug)->orderBy('first_name','asc');
-		        break;
-		    case 'za':
-		        $usuarios = User::clienteSlug($cliente_default->slug)->orderBy('first_name','desc');
-		        break;
-		    case 'data-cresc':
-		        $usuarios = User::clienteSlug($cliente_default->slug)->orderBy('created_at','desc');
-		        break;
-		    case 'data-decresc':
-		        $usuarios = User::clienteSlug($cliente_default->slug)->orderBy('created_at','asc');
-		        break;
-		    default:
-		    	$usuarios = User::clienteSlug($cliente_default->slug)->orderBy('first_name','asc');
-		}	
+		$nome = $request::input('nome');
+		$usuarios = $this->filtraUsuarios($request, $cliente_default, $default_ordenar_por, $nome);
 
-		$usuarios = $usuarios->paginate($por_pagina);
+		$usuarios_sem_paginacao = $usuarios->get();
+		$usuarios = $usuarios->paginate($por_pagina)->appends(['nome' => $nome]);
 
 		// array para popular o select com os clientes
 		$filtrar_por_cliente = Cliente::orderBy('name','asc')->lists('name','slug');
 
 		// array para popular o select de ordenar por
 		$ordenar_por = array(
-				''=>'Ordenar por',
-				'az'=>'Ordem alfabética A-Z',
-				'za'=>'Ordem alfabética Z-A',
-				'data-cresc'=>'Data crescente de cadastro',
-				'data-decresc'=>'Data decrescente de cadastro',
+				'' => 'Ordenar por',
+				'az' => 'Ordem alfabética A-Z',
+				'za' => 'Ordem alfabética Z-A',
+				'data-cresc' => 'Data crescente de cadastro',
+				'data-decresc' => 'Data decrescente de cadastro',
 			);
 
 		// conta quantos usuários de cada grupo / nível
-		$count_admin = 0;	$count_lewlara = 0;		$count_cliente = 0;
+		$count_admin = 0;
+		$count_lewlara = 0;
+		$count_cliente = 0;
 		foreach ($usuarios_sem_paginacao as $usuario){
 			foreach ($usuario->group as $group){
 				switch ($group->id) {
@@ -97,7 +83,7 @@ class UserController extends Controller {
 		 	}
 		}		
 
-		return view('usuario.usuario_por_cliente', compact('usuarios', 'ordenar_por', 'default_ordenar_por', 'filtrar_por_cliente','default_filtrar_por_cliente', 'cliente_default', 'count_admin','count_lewlara','count_cliente'));
+		return view('usuario.usuario_por_cliente', compact('usuarios', 'ordenar_por', 'default_ordenar_por', 'filtrar_por_cliente','default_filtrar_por_cliente', 'cliente_default', 'count_admin','count_lewlara','count_cliente', 'nome'));
 	} 
 
 	/**
@@ -348,26 +334,35 @@ class UserController extends Controller {
 
 
 
-	public function resetarSenhaUsuarios($cliente_default=null)
+	public function resetarSenhaUsuarios(Request $request, $default_ordenar_por = null, $cliente_default=null)
 	{
 		$por_pagina = 15;
 
 		// adiciona na url o cliente
 		if($cliente_default == null){
 		    $cliente_default = _clienteDefault($cliente_default);
-		    return Redirect::action('UserController@resetarSenhaUsuarios', array($cliente_default->slug));
+		    return Redirect::action('UserController@resetarSenhaUsuarios', array('az', $cliente_default->slug));
 		} else {
 		    $cliente_default = _clienteDefault($cliente_default);
 		}  
 
+		$nome = $request::input('nome');
+		$usuarios = $this->filtraUsuarios($request, $cliente_default, $default_ordenar_por, $nome);
 
-
-		$usuarios_sem_paginacao = User::clienteSlug($cliente_default->slug)->get();
-		$usuarios = User::clienteSlug($cliente_default->slug)->orderBy('first_name','asc')->paginate($por_pagina);
-	
+		$usuarios_sem_paginacao = $usuarios->get();
+		$usuarios = $usuarios->paginate($por_pagina)->appends(['nome' => $nome]);
 
 		// array para popular o select com os clientes
 		$filtrar_por_cliente = Cliente::orderBy('name','asc')->lists('name','slug');
+
+		// array para popular o select de ordenar por
+		$ordenar_por = array(
+				'' => 'Ordenar por',
+				'az' => 'Ordem alfabética A-Z',
+				'za' => 'Ordem alfabética Z-A',
+				'data-cresc' => 'Data crescente de cadastro',
+				'data-decresc' => 'Data decrescente de cadastro',
+			);
 
 		// conta quantos usuários de cada grupo / nível
 		$count_tipo_usuarios['admin'] = 0;
@@ -389,8 +384,7 @@ class UserController extends Controller {
 		 	}
 		}	
 
-		return view('usuario.reseta_senha_usuarios', compact('usuarios', 'filtrar_por_cliente', 'cliente_default', 'count_tipo_usuarios'));
-
+		return view('usuario.reseta_senha_usuarios', compact('usuarios', 'ordenar_por', 'default_ordenar_por', 'filtrar_por_cliente', 'cliente_default', 'count_tipo_usuarios', 'nome'));
 	}
 
 	public function resetarSenhaUsuariosEnvia(User $usuario)
@@ -428,7 +422,7 @@ class UserController extends Controller {
 	}
 
 
-	public function informacoesDeAcesso($default_ordenar_por=null,$cliente_default=null)
+	public function informacoesDeAcesso(Request $request, $default_ordenar_por = null, $cliente_default = null)
 	{  	
 		$por_pagina = 15;
 
@@ -438,45 +432,25 @@ class UserController extends Controller {
 		    return Redirect::action('UserController@informacoesDeAcesso', array('az', $cliente_default->slug));
 		} else {
 		    $cliente_default = _clienteDefault($cliente_default);
-		}  
+		}
 
-		
-			
-		$usuarios_sem_paginacao = User::clienteSlug($cliente_default->slug)->get();
-		// há os dois filtros, tanto ordenar por quanto por cliente
-		switch ($default_ordenar_por) {
-		    case 'az':
-				$usuarios = User::clienteSlug($cliente_default->slug)->orderBy('first_name','asc');
-		        break;
-		    case 'za':
-		        $usuarios = User::clienteSlug($cliente_default->slug)->orderBy('first_name','desc');
-		        break;
-		    case 'data-cresc':
-		        $usuarios = User::clienteSlug($cliente_default->slug)->orderBy('created_at','desc');
-		        break;
-		    case 'data-decresc':
-		        $usuarios = User::clienteSlug($cliente_default->slug)->orderBy('created_at','asc');
-		        break;
-		    default:
-		    	$usuarios = User::clienteSlug($cliente_default->slug)->orderBy('first_name','asc');					
-		}	
-		
-		$usuarios = $usuarios->paginate($por_pagina);
+		$nome = $request::input('nome');
+		$usuarios = $this->filtraUsuarios($request, $cliente_default, $default_ordenar_por, $nome);
 
-		
+		$usuarios_sem_paginacao = $usuarios->get();
+		$usuarios = $usuarios->paginate($por_pagina)->appends(['nome' => $nome]);
 
 		// array para popular o select com os clientes
-		$filtrar_por_cliente = Cliente::orderBy('name','asc')->lists('name','slug');
+		$filtrar_por_cliente = Cliente::orderBy('name', 'asc')->lists('name','slug');
 
 		// array para popular o select de ordenar por
 		$select_ordenar_por = _ordenarPor();
-
 
 		foreach ($usuarios as $usuario) {
 			$usuario->log_acoes = DB::table('log_acoes')->where('id_ativo', $usuario->id)->orderBy('created_at','desc')->skip(0)->take(10)->get();
 		}
 
-		return view('usuario.informacoes_de_acesso', compact('usuarios', 'select_ordenar_por', 'default_ordenar_por', 'cliente_default', 'filtrar_por_cliente','default_filtrar_por_cliente'));
+		return view('usuario.informacoes_de_acesso', compact('usuarios', 'select_ordenar_por', 'default_ordenar_por', 'cliente_default', 'filtrar_por_cliente', 'default_filtrar_por_cliente', 'nome'));
 	} 
 
 
@@ -550,5 +524,33 @@ class UserController extends Controller {
 	        $pass[] = $alphabet[$n];
 	    }
 	    return implode($pass); //turn the array into a string
+	}
+
+	private function filtraUsuarios ($request, $cliente_default, $default_ordenar_por, $nome) {
+		// há os dois filtros, tanto ordenar por quanto por cliente
+		switch ($default_ordenar_por) {
+			case 'az':
+				$usuarios = User::clienteSlug($cliente_default->slug)->orderBy('first_name','asc');
+				break;
+			case 'za':
+				$usuarios = User::clienteSlug($cliente_default->slug)->orderBy('first_name','desc');
+				break;
+			case 'data-cresc':
+				$usuarios = User::clienteSlug($cliente_default->slug)->orderBy('created_at','desc');
+				break;
+			case 'data-decresc':
+				$usuarios = User::clienteSlug($cliente_default->slug)->orderBy('created_at','asc');
+				break;
+			default:
+				$usuarios = User::clienteSlug($cliente_default->slug)->orderBy('first_name','asc');					
+		}
+
+		if (!empty($nome)) {
+			$usuarios->where('first_name', 'like', '%' . $nome . '%');
+			$usuarios->orWhere('last_name', 'like', '%' . $nome . '%');
+			$usuarios->orWhere('username', 'like', '%' . $nome . '%');
+		}
+
+		return $usuarios;
 	}
 }

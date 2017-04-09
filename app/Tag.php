@@ -10,7 +10,8 @@ class Tag extends Model  {
 	 * @var string
 	 */
 	protected $table = 'tags';
-        public $timestamps = false;
+	public $timestamps = false;
+
 	/**
 	 * The attributes that are mass assignable.
 	 *
@@ -18,10 +19,6 @@ class Tag extends Model  {
 	 */
 	//protected $fillable = ['name', 'link', 'slug', 'logo', 'active'];
 
-
-
-
- 
 	/**
 	 * Relação Many To Many
 	 */

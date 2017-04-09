@@ -17,10 +17,6 @@ class Cliente extends Model  {
 	 * @var array
 	 */
 	protected $fillable = ['name', 'link', 'slug', 'logo', 'active'];
-
-
-
-
  
 	/**
 	 * Relação Many To Many
@@ -37,7 +33,8 @@ class Cliente extends Model  {
     public function tag()
     { 
         return $this->hasMany('App\Tag');
-    } 
+    }
+
     /**
      * Relação One To Many
      */

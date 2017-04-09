@@ -6520,6 +6520,9 @@ i {
 .btn-preto:active {
   color: #fff;
 }
+.btn-preto.col-sm-3 {
+  min-width: 0;
+}
 .btn-cinza {
   border: none;
   color: #000000;
@@ -7976,7 +7979,7 @@ hr.galeria-separador {
   padding-top: 20px;
   padding-bottom: 20px;
 }
-.newsletter.pessoas .pessoa:nth-child(odd) {
+.newsletter.pessoas .pessoa {
   padding-right: 20px;
 }
 .newsletter.pessoas .pessoa .borda {
@@ -8765,7 +8768,7 @@ hr.galeria-separador {
   padding-top: 20px;
   padding-bottom: 20px;
 }
-.notificacoes.pessoas .pessoa:nth-child(odd) {
+.notificacoes.pessoas .pessoa {
   padding-right: 20px;
 }
 .notificacoes.pessoas .pessoa .borda {

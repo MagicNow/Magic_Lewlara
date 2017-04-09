@@ -16,7 +16,7 @@ $scripts = array(
 @section('content')
 
 		<div class="col-sm-9  col-md-9 main newsletter pessoas">
-			{!! Form::open(['action'=>array('NewsletterController@grupoUpdate',$grupo->id), 'class'=>'form-horizontal', 'method'=>'PUT']) !!}
+			{!! Form::open(['action' => array('NewsletterController@grupoUpdate', $grupo->id), 'class' => 'form-horizontal newsletter-form', 'method'=>'PUT']) !!}
 						<br />
 						
 						<h1>
@@ -61,10 +61,17 @@ $scripts = array(
 								<span>ADMINISTRADORES | {{ $count_admin }} | &nbsp;</span> 
 								<span>CLIENTES | {{ $count_cliente }} | &nbsp;</span> 
 								<span>LEW LARA | {{ $count_lewlara }} |</span>
-							</div><!-- /.col-sm-8 -->		
+							</div>
+							<div class="col-sm-4 text-right form-filtra-usuario">
+								<div class="col-sm-7 col-md-8">
+									{!! Form::text('buscar_por', NULL, ['class'=>'buscar-por-inline form-control arrow-preto-amarelo sem-padding', 'placeholder' => 'Buscar por nome']) !!}
+								</div>
+								<button class="aplicar-ordem-inline btn btn-preto btn-meio-medio col-sm-5 col-md-4">APLICAR</button>
+							</div>
 						</div><!-- /.row -->
-						 
-						<div class="row">
+						
+						<div class="lista-container">
+							<div class="row">
 
 								<div class="col-sm-12 font-arial-narrow text-bold anula-padding">
 									<div class="col-sm-6 anula-padding titulo">
@@ -75,7 +82,8 @@ $scripts = array(
 								<?php $n = 0; ?>
 								@if (count($pessoas))								
 									@foreach ($pessoas as $pessoa)
-										<div class="<?php echo ($n%2) ? 'col-sm-5 col-sm-offset-1' : 'col-sm-6' ?> pessoa">		<div class="borda">
+										<div class="col-sm-6 pessoa lista-item">
+											<div class="borda lista-item-label">
 												{!! Form::checkbox('pessoas[]', $pessoa->id, array_key_exists($pessoa->id, $pessoasSelecionadas), ['class'=>'pessoa-checkbox']) !!}
 
 												@if ($pessoa->photo)
@@ -92,8 +100,8 @@ $scripts = array(
 										Não há pessoas cadastradas para o cliente {{ $cliente_default->name }}</td>
 									</div><!-- /.col-sm-12 -->
 								@endif	
-						</div><!-- /.row -->
-
+							</div><!-- /.row -->
+						</div>
 						<br>
 						<br>
 
