@@ -27,15 +27,13 @@ $scripts = array(
 						</h1>
 						
 						<br />
-						
-					
 
 						<div class="row">
 							<div class="col-sm-6 sobre-linha">
-								<span class="filtro-grupo" data-grupo='Todos'>TODOS | {{ $usuarios->total() }} | &nbsp;</span> 
-								<span class="filtro-grupo" data-grupo='Admin'>ADMINISTRADORES | {{ $count_admin }} | &nbsp;</span> 
-								<span class="filtro-grupo" data-grupo='Cliente'>CLIENTES | {{ $count_cliente }} | &nbsp;</span> 
-								<span class="filtro-grupo" data-grupo='LewLara'>LEW LARA | {{ $count_lewlara }} |</span>
+								<a href="{{ action('UserController@usuariosPorCliente', array($default_ordenar_por, $cliente_default->slug, 'nome' => $nome)) }}" class="link-filtro">TODOS | {{ $count_total }} | &nbsp;</a> 
+								<a href="{{ action('UserController@usuariosPorCliente', array($default_ordenar_por, $cliente_default->slug, 'filtro' => 'Admin', 'nome' => $nome)) }}" class="link-filtro">ADMINISTRADORES | {{ $count_admin }} | &nbsp;</a> 
+								<a href="{{ action('UserController@usuariosPorCliente', array($default_ordenar_por, $cliente_default->slug, 'filtro' => 'Cliente', 'nome' => $nome)) }}" class="link-filtro">CLIENTES | {{ $count_cliente }} | &nbsp;</a> 
+								<a href="{{ action('UserController@usuariosPorCliente', array($default_ordenar_por, $cliente_default->slug, 'filtro' => 'LewLara', 'nome' => $nome)) }}" class="link-filtro">LEW LARA | {{ $count_lewlara }} |</a>
 							</div><!-- /.col-sm-8 -->
 
 							<div class="col-sm-6 text-right form-filtra-usuario">

@@ -152,7 +152,8 @@ return [
 		'App\Providers\RouteServiceProvider',
 		'App\Providers\ValidatorServiceProvider',
 
-		'App\Providers\ViewComposerServiceProvider'
+		'App\Providers\ViewComposerServiceProvider',
+		Barryvdh\Debugbar\ServiceProvider::class,
 	],
 
 	/*
@@ -202,8 +203,9 @@ return [
 		'View'      => 'Illuminate\Support\Facades\View',
 		'Form'      => 'Illuminate\Html\FormFacade',
 		'HelpersGeral'=>'App\Helpers\helpersgeral',
-		'PDF' => 'Barryvdh\DomPDF\Facade'
+		'PDF' 		=> 'Barryvdh\DomPDF\Facade',
 
+		'Debugbar' => Barryvdh\Debugbar\Facade::class,
 	],
 
 ];

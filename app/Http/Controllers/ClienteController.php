@@ -98,25 +98,34 @@ class ClienteController extends Controller {
 	public function index($default_ordenar_por=null)
 	{  	
 		if($default_ordenar_por==null){
-			$clientes = Cliente::orderBy('name','asc')->paginate(15);
+			$clientes = Cliente::orderBy('name','asc');
 		} else {
 			switch ($default_ordenar_por) {
 			    case 'az':
-			        $clientes = Cliente::orderBy('name','asc')->paginate(15);
+			        $clientes = Cliente::orderBy('name','asc');
 			        break;
 			    case 'za':
-			        $clientes = Cliente::orderBy('name','desc')->paginate(15);
+			        $clientes = Cliente::orderBy('name','desc');
 			        break;
 			    case 'data-cresc':
-			        $clientes = Cliente::orderBy('created_at','desc')->paginate(15);
+			        $clientes = Cliente::orderBy('created_at','desc');
 			        break;
 			    case 'data-decresc':
-			        $clientes = Cliente::orderBy('created_at','asc')->paginate(15);
+			        $clientes = Cliente::orderBy('created_at','asc');
 			        break;
 			    default:
-			    	$clientes = Cliente::orderBy('name','asc')->paginate(15);
+			    	$clientes = Cliente::orderBy('name','asc');
 			}			
 		}
+
+		$clientes = $clientes->with([ 'user' => function($query) {
+								$query->whereHas('group', function($subquery) {
+									$subquery->where('id', 1);
+									$subquery->orWhere('id', 4);
+								});
+							}])
+							->paginate(15);
+
 
 		$select_ordenar_por = $this->_selectOrdenarPor();
 

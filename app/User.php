@@ -49,9 +49,6 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 		    : bcrypt($password);
 	}
 
-	
-
-
 	public function is_admin(){
 		if($this->group()->first()->id == 1 || $this->group()->first()->id == 4){  // usar contains() ?
 			return true;
@@ -75,8 +72,6 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 			return false;
 		}
 	}
-
-
 
 	/**
 	 * Relação Many To Many

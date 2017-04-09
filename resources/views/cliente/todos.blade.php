@@ -80,10 +80,10 @@ $scripts = array(
 												</div><!-- /.box-editar-excluir -->
 											</td>
 											<td>
-												@if ($cliente->user()->count())												
+												@if (!empty($cliente->user))
 													@foreach ($cliente->user as $user)
-														{{ mb_strtoupper($user->first_name) }} <br />
-													@endforeach		
+														{{ mb_strtoupper($user->first_name . ' ' . $user->last_name) }} <br />
+													@endforeach
 												@else
 														{{ mb_strtoupper('NENHUM') }}
 												@endif	

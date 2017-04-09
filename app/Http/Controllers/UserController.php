@@ -46,10 +46,17 @@ class UserController extends Controller {
 		}
 	
 		$nome = $request::input('nome');
+		$filtro = $request::input('filtro');
 		$usuarios = $this->filtraUsuarios($request, $cliente_default, $default_ordenar_por, $nome);
+		$usuarios_sem_paginacao_filtro = $usuarios->get();
 
-		$usuarios_sem_paginacao = $usuarios->get();
-		$usuarios = $usuarios->paginate($por_pagina)->appends(['nome' => $nome]);
+		if (isset($filtro) && !empty($filtro)) {
+			$usuarios->whereHas('group', function($query) use ($filtro) {
+							$query->whereName($filtro);
+						});
+		}
+
+		$usuarios = $usuarios->paginate($por_pagina)->appends(['nome' => $nome, 'filtro' => $filtro]);
 
 		// array para popular o select com os clientes
 		$filtrar_por_cliente = Cliente::orderBy('name','asc')->lists('name','slug');
@@ -67,23 +74,26 @@ class UserController extends Controller {
 		$count_admin = 0;
 		$count_lewlara = 0;
 		$count_cliente = 0;
-		foreach ($usuarios_sem_paginacao as $usuario){
+
+		foreach ($usuarios_sem_paginacao_filtro as $usuario){
 			foreach ($usuario->group as $group){
 				switch ($group->id) {
 					case '1':
-						 $count_admin++;
+						$count_admin++;
 						break;
 					case '2':
-						 $count_lewlara++;
+						$count_lewlara++;
 						break;
 					case '3':
-						 $count_cliente++;
+						$count_cliente++;
 						break;					
 				}
 		 	}
-		}		
+		}
 
-		return view('usuario.usuario_por_cliente', compact('usuarios', 'ordenar_por', 'default_ordenar_por', 'filtrar_por_cliente','default_filtrar_por_cliente', 'cliente_default', 'count_admin','count_lewlara','count_cliente', 'nome'));
+		$count_total = $count_admin + $count_lewlara + $count_cliente;
+
+		return view('usuario.usuario_por_cliente', compact('usuarios', 'ordenar_por', 'default_ordenar_por', 'filtrar_por_cliente', 'default_filtrar_por_cliente', 'cliente_default', 'count_admin', 'count_lewlara','count_cliente', 'count_total', 'nome'));
 	} 
 
 	/**
@@ -546,9 +556,11 @@ class UserController extends Controller {
 		}
 
 		if (!empty($nome)) {
-			$usuarios->where('first_name', 'like', '%' . $nome . '%');
-			$usuarios->orWhere('last_name', 'like', '%' . $nome . '%');
-			$usuarios->orWhere('username', 'like', '%' . $nome . '%');
+			$usuarios->where(function($query) use ($nome) {
+				$query->where('first_name', 'like', '%' . $nome . '%');
+				$query->orWhere('last_name', 'like', '%' . $nome . '%');
+				$query->orWhere('username', 'like', '%' . $nome . '%');
+			});
 		}
 
 		return $usuarios;
