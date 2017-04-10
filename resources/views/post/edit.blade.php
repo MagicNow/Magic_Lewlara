@@ -71,11 +71,9 @@ $scripts = array(
 							</div>
 						@endif
 
-						
-
-						{!! Form::model($post,['method'=>'PUT','action'=>['PostController@update',$post->id], 'class'=>'form-horizontal', 'files' => true]) !!}
-							{!! Form::hidden('cliente_id',$cliente_default->id) !!}
-							{!! Form::hidden('post_id',$post->id) !!}
+						{!! Form::model($post, [ 'method' => 'PUT', 'action' => ['PostController@update', $post->id], 'class' => 'form-horizontal post-form', 'files' => true ]) !!}
+							{!! Form::hidden('cliente_id', $cliente_default->id, array('id' => 'clienteId')) !!}
+							{!! Form::hidden('post_id', $post->id) !!}
 							<!-- ESQUERDA -->
 							<div class="col-sm-8">
 								<div class="col-sm-11">				
@@ -225,7 +223,7 @@ $scripts = array(
 
 		@if(@$open_preview)
 			<script type="text/javascript">
-				window.location.href = "<?php echo action('blog\HomeBlogController@click_interna',array($post->cliente->slug,$post->id,'preview')) ?>";
+				window.location.href = "<?php echo action('blog\HomeBlogController@click_interna', array($post->cliente->slug, $post->id, 'preview')) ?>";
 			</script>
 		@endif		
 

@@ -1184,6 +1184,12 @@ class PostController extends Controller {
     public function ajaxUpload() {
         // getting all of the post data
         $file = array('image' => Input::file('image'));
+        $dragdrop = false;
+        if (empty(Input::file('image'))) {
+            $file = array('image' => Input::file('file'));
+            $dragdrop = true;
+        }
+
         // setting up rules
         $imageRules = array('image' => 'required|max:1000'); //mimes:jpeg,bmp,png and for max size max:10000
         // doing the validation, passing post data, rules and the messages
@@ -1211,7 +1217,7 @@ class PostController extends Controller {
             die();
         } else {
             // checking file is valid. if it was uploaded
-            if (Input::file('image')->isValid()) {
+            if ($file['image']->isValid()) {
 
                 $cliente_slug = Cliente::findOrFail(Input::get('cliente_id'))->slug;
 
@@ -1219,15 +1225,24 @@ class PostController extends Controller {
 
 
                 $destinationPath = 'upload/posts/' . $cliente_default->id . '/'; // upload path
-                $extension = Input::file('image')->getClientOriginalExtension(); // getting image extension
-                $fileName = $cliente_default->id . '-' . uniqid() . rand(1111, 9999) . '.' . $extension; // renameing image
-                Input::file('image')->move($destinationPath, $fileName); // uploading file to given path
+                $extension = $file['image']->getClientOriginalExtension(); // getting image extension
+                $fileName = $cliente_default->id . '-' . uniqid() . rand(1111, 9999); // renameing image
+                $fileNameWithExt = $fileName . '.' . $extension;
+                $file['image']->move($destinationPath, $fileNameWithExt); // uploading file to given path
 
-                echo json_encode(array(
-                    'name' => $fileName,
-                    'error' => null,
-                ));
-                die();
+                if ($dragdrop) {
+                    $ret = json_encode(array(
+                        'id' => $fileName,
+                        'url' => url($destinationPath . $fileNameWithExt),
+                    ));
+                } else {
+                    $ret = json_encode(array(
+                        'name' => $fileNameWithExt,
+                        'error' => null,
+                    ));
+                }
+
+                die($ret);
             } else {
                 echo json_encode(array(
                     'name' => null,

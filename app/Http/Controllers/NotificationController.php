@@ -115,11 +115,14 @@ class NotificationController extends Controller {
 							'post-update'=>'Atualização de Post'
 							);
 
-		$select_posts = array(null=>'Selecione o Post')+Post::clienteSlug($cliente_default->slug)->lists('titulo','id');
+		$posts = Post::clienteSlug($cliente_default->slug)
+						->orderBy('created_at', 'DESC')
+						->lists('titulo', 'id');
+		$select_posts = array(null => 'Selecione o Post') + $posts;
 
 		$pessoas = $cliente_default->user()->get();
 
-		return view('notification.disparar_notificacao', compact('cliente_default','select_escolha_o_cliente','select_assuntos','select_posts','pessoas'));
+		return view('notification.disparar_notificacao', compact('cliente_default', 'select_escolha_o_cliente', 'select_assuntos', 'select_posts', 'pessoas'));
 	}
 
 	public function registrarNotificacao()

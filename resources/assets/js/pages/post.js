@@ -16,42 +16,6 @@ $.Redactor.prototype.underline = function()
 
  //POST 
 $(document).ready(function () {
-
-    /*$('textarea.editavel').wysiwyg({ 
-        autoSave: true,
-        rmUnusedControls: true,
-        css: baseUrl + '/css/textarea-editavel.css',
-        iFrameClass: 'iframe-textarea-editavel',
-        autoGrow: true,
-        html: "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'><html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' style='margin:0'><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'><link rel='stylesheet'  href='"+baseUrl+"/libs/lightslider/css/lightslider.css'/></head><body style='margin:0;'>INITIAL_CONTENT "+scriptss+" </body></html>",
-        controls: {
-            colorpicker: {
-                groupIndex: 11,
-                visible: true,
-                css: {
-                    "color": function (cssValue, Wysiwyg) {
-                        var document = Wysiwyg.innerDocument(),
-                            defaultTextareaColor = $(document.body).css("color");
-                            console.log(defaultTextareaColor);
-                        if (cssValue !== defaultTextareaColor) {
-                            return true;
-                        }
-
-                        return false;
-                    }
-                },
-                exec: function() {
-                    if ($.wysiwyg.controls.colorpicker) {
-                        $.wysiwyg.controls.colorpicker.init(this);
-                    }
-                },
-                tooltip: "Colorpicker"
-            }
-        }
-        
-    }); */
-
-
     $('textarea.editavel').redactor({
         buttonSource: true,
         cleanOnPaste: false,
@@ -73,7 +37,9 @@ $(document).ready(function () {
         plugins: ['underline', 'video', 'fontsize', 'fontcolor', 'alignment'],
         imageEditable: true,
         imageLink: true,
-        imagePosition: true
+        imagePosition: true,
+        imageUpload: baseUrl + '/post/ajax_upload',
+        imageUploadFields: '#clienteId, .post-form input[name="_token"]'
     });
 
     $(".bg-textarea-editavel-toolbar.bt-bold").mousedown(function (e) {
