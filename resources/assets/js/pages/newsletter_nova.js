@@ -78,13 +78,21 @@ $(document).ready(function () {
 
     $('.post-checkbox').on('click', function(e){
         var dados = new Object();
+        var $self = $(this);
+        var $tbody = $self.parents('tbody');
+        var $checkButton = $tbody.find('.newsletter-atualizacao-container');
+        var $checkButtonInput = $checkButton.find('input');
 
         dados.postId = $(this).val();
+        dados.atualizacao = 'unset';
 
-        if($(this).is(':checked')){
+        if($self.is(':checked')){
             dados.acao = 'set';
+            $checkButton.removeClass('hidden');
         } else {
             dados.acao = 'unset';
+            $checkButton.addClass('hidden');
+            $checkButtonInput.attr('checked', false);
         }
 
         $.ajax({
@@ -92,9 +100,27 @@ $(document).ready(function () {
             dataType: "html",
             url: baseUrl + "/newsletter/ajax_postSelecionado",
             data: dados,
-            success: function (data) {
-                
-            }
+            success: function (data) { }
+        });
+    });
+
+    $('.newsletter-atualizacao-container').on('click', function (e) {
+        var dados = new Object();
+        var $self = $(this);
+        var $tbody = $self.parents('tbody');
+        var $checkbox = $tbody.find('.post-checkbox');
+        var $checkButtonInput = $self.find('input');
+
+        dados.postId = $checkbox.val();
+        dados.acao = $checkbox.is(':checked') ? 'set' : 'unset';
+        dados.atualizacao = !$checkButtonInput.is(':checked') ? 'set' : 'unset';
+
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: baseUrl + "/newsletter/ajax_postSelecionado",
+            data: dados,
+            success: function (data) { }
         });
     });
 

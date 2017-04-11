@@ -17,9 +17,9 @@
 				
 				<br />
 			</div><!-- /.col-sm-12 -->
-		</div><!-- /.row -->	
+		</div><!-- /.row -->
 		<div class="row">
-			@foreach ($newsletter->post()->get() as $post)		
+			@foreach ($newsletter->post()->get() as $post)
 				<a target="_blank" href="{{action('blog\HomeBlogController@click_interna',array($cliente_default->slug,$post->slug))}}" class="col-sm-6 box-post">
 					@if (count($post->midia))
 						<?php $midia = $post->midia->first(); ?>
@@ -27,8 +27,12 @@
 							<img class="img-post-destaque" src="{{ URL::to('/').'/'.$midia->imagem }}" width="100%" height="auto" style="width: 100%;">
 						</div><!-- /.box-img-post-destaque -->
 					@endif
-
-					<h2>{{ mb_strtoupper($post->titulo) }}</h2>
+					<table cellspacing="0" cellpadding="0" border="0">
+						<tr>
+							{!! $post->pivot->atualizacao ? '<td><img class="img-post-atualizao" alt="Atualização" src="'. URL::to('/img/update-icon.png') . '"></td>' : '' !!}
+							<td><h2>{{ mb_strtoupper($post->titulo) }}</h2></td>
+						</tr>
+					</table>
 					{{-- <p>{!! _resumo(_limpaHtmlJs($post->desc,true),0,280) !!}</p><br> --}}
 				</a>	
 			@endforeach

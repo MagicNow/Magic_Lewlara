@@ -100,17 +100,13 @@ $scripts = array(
 											<tr>
 												<td>
 													<div class="row">
-														{!! Form::checkbox('posts[]', $post->id, array_key_exists($post->id, $postsSelecionados), ['class'=>'post-checkbox']) !!}
-														@if ($post->logo)
-															
-
-														@endif
+														{!! Form::checkbox('posts[]', $post->id, array_key_exists($post->id, $postsSelecionados) ? $postsSelecionados[$post->id]['acao'] : false, ['class'=>'post-checkbox']) !!}
 														&nbsp; 
 														<span> 
 															{{ $post->titulo }}
 														</span>
-													</div><!-- /.row -->											
-												</td>				
+													</div><!-- /.row -->
+												</td>
 												<td>
 													{{ mb_strtoupper($post->user->first_name . ' ' . $post->user->last_name) }}
 												</td>	
@@ -130,6 +126,14 @@ $scripts = array(
 											<tr >
 												<td colspan="2" class="infos"> 
 													<div class="infos col-sm-12 direita-padding">
+
+														<div class="btn-group" data-toggle="buttons">
+															<label class="{{ array_key_exists($post->id, $postsSelecionados) && $postsSelecionados[$post->id]['atualizacao'] ? 'active' : '' }} btn btn-info btn-extra-pequeno newsletter-atualizacao-container {{ array_key_exists($post->id, $postsSelecionados) ? '' : 'hidden' }}">
+																<input type="checkbox" autocomplete="off" class="newsletter-atualizacao-checkbox" name="atualizacao[]" value="sim" {{ array_key_exists($post->id, $postsSelecionados) && $postsSelecionados[$post->id]['atualizacao'] ? 'checked' : '' }}><i class="checked fa fa-check-square-o" aria-hidden="true"></i> <i class="unchecked fa fa-square-o" aria-hidden="true"></i> ATUALIZAÇÃO
+															</label>
+														</div>&nbsp;
+
+
 														{!! link_to_action('PostController@edit',' &nbsp;  &nbsp;EDITAR&nbsp;  &nbsp; ',$post->id,['class'=>'btn btn-preto btn-extra-pequeno align-center']) !!}
 														&nbsp;
 														<a href="#excluir" 

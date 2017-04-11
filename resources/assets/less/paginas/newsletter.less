@@ -51,7 +51,25 @@
         }
     }
 
+    &-atualizacao-checkbox {
+        &~.unchecked {
+            display: inline;
+        }
 
+        &~.checked {
+            display: none;
+        }
+
+        &:checked {
+            &~.checked {
+                display: inline;
+            }
+
+            &~.unchecked {
+                display: none;
+            }
+        }
+    }
 
     
 }
@@ -312,6 +330,10 @@
         }
         .img-post-destaque {
             width: 500px;
+        }
+
+        .img-post-atualizao {
+            margin-right: 5px;
         }
 
         h2 {

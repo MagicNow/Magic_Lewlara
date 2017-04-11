@@ -44,7 +44,7 @@ class NewsletterController extends Controller {
 
         // verifica se existem posts selecionados
         if(!session('postsSelecionados')){
-            redirect()->action('NewsletterController@novaPosts',$cliente_default->slug)->withErrors('Selecione ao menos um Post')->send();   
+            redirect()->action('NewsletterController@novaPosts', $cliente_default->slug)->withErrors('Selecione ao menos um Post')->send();   
         }
 
         $postsValidos = array();
@@ -53,6 +53,7 @@ class NewsletterController extends Controller {
             $post = Post::find($postId);
             if($post){
                 if($post->cliente->id == $cliente_default->id){
+                    $post->atualizacao = $value['atualizacao'];
                     array_push($postsValidos, $post);
                 }
             }
@@ -348,8 +349,12 @@ class NewsletterController extends Controller {
             $postsSelecionados = array();
         }
 
+        $atualizacao = Request::get('atualizacao') == 'set' ? true : false;
         if(Request::get('acao') == 'set'){
-            $postsSelecionados[Request::get('postId')] = true;
+            $postsSelecionados[Request::get('postId')] = array(
+                'acao' => true,
+                'atualizacao' => $atualizacao
+            );
             Session::put('postsSelecionados', $postsSelecionados);
         } else if(Request::get('acao') == 'unset'){
             unset($postsSelecionados[Request::get('postId')]);
@@ -465,8 +470,6 @@ class NewsletterController extends Controller {
         // efetiva o cadastro da newsletter
         $newsletter = $this->novaCadastra($postsValidos, $gruposValidos, $pessoasValidas, $cliente_default);
 
-        
-
         // gera HTML para ser enviado via e-mail
         $dtt = explode('-',$newsletter->created_at);
         $newsletter->ano = $dtt[0];  
@@ -475,14 +478,14 @@ class NewsletterController extends Controller {
 
         $cssToInlineStyles = new CssToInlineStyles();
 
-        $html = view('newsletter/show2', compact('newsletter','cliente_default'))->render();
+        $html = view('newsletter/show2', compact('newsletter', 'cliente_default'))->render();
         $css = file_get_contents(__DIR__ . '/../../../public/css/email_newsletter.css');
 
         $cssToInlineStyles->setHTML($html);
         $cssToInlineStyles->setCSS($css);
 
         // html gerado
-        $Htmlfinal =   $cssToInlineStyles->convert();
+        $Htmlfinal = $cssToInlineStyles->convert();
 
             // define destinatários
             $email_destinatario = array();
@@ -517,20 +520,22 @@ class NewsletterController extends Controller {
         return view('newsletter.nova_sucesso', compact('newsletter','cliente_default'));
     }
 
-    private function novaCadastra($postsValidos = null,  $gruposValidos = null, $pessoasValidas = null, $cliente_default = null){
+    private function novaCadastra($postsValidos = null, $gruposValidos = null, $pessoasValidas = null, $cliente_default = null){
         if(!$postsValidos || !$cliente_default){ return false; }
-        
+
         // cria array com Ids dos posts validos            
         if(is_array($postsValidos)){
             $postsValidosArrayId = array();
+            $arr = array();
             foreach ($postsValidos as $post) {
-                array_push($postsValidosArrayId, $post->id);
+                $arr[$post->id] = array(
+                    'atualizacao' => $post->atualizacao
+                );
+                $postsValidosArrayId = $arr;
             }
         } else {
             $postsValidosArrayId = array($postsValidos);
         }
-
-       
 
         if($pessoasValidas){
             // cria array com Ids das pessoas validas
@@ -545,7 +550,6 @@ class NewsletterController extends Controller {
         } else {
             $pessoasValidasArrayId = array();
         }
-
 
         $pessoasValidasGrupoArrayId = array();
         if($gruposValidos){

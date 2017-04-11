@@ -8016,6 +8016,18 @@ hr.galeria-separador {
 .newsletter.pessoas .pessoas-selecionadas .imagem-usuario:hover {
   cursor: pointer;
 }
+.newsletter-atualizacao-checkbox ~ .unchecked {
+  display: inline;
+}
+.newsletter-atualizacao-checkbox ~ .checked {
+  display: none;
+}
+.newsletter-atualizacao-checkbox:checked ~ .checked {
+  display: inline;
+}
+.newsletter-atualizacao-checkbox:checked ~ .unchecked {
+  display: none;
+}
 #modal-ver-posts-pessoas.aberta {
   display: block;
   position: fixed;
@@ -8212,6 +8224,9 @@ hr.galeria-separador {
 }
 .newsletter-gerada .box-post .img-post-destaque {
   width: 500px;
+}
+.newsletter-gerada .box-post .img-post-atualizao {
+  margin-right: 5px;
 }
 .newsletter-gerada .box-post h2 {
   font-family: 'Arial Narrow', Arial, sans-serif;
