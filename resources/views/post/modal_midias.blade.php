@@ -15,6 +15,9 @@
             <li role="presentation">
                 <a href="#add" id="add-tab" role="tab" data-toggle="tab" aria-controls="add">ADICIONAR UMA URL</a>
             </li>
+            <li role="presentation">
+                <a href="#organize" id="organize-tab" role="tab" data-toggle="tab" aria-controls="organize">ORGANIZAR LIVRARIA</a>
+            </li>
         </ul>
     </div>
     <div class="main-tab-content tab-content">
@@ -96,7 +99,7 @@
             </ul>
             <!----><!----><!----><!----><!----><!----><!----><!---->
             <div class="tab-content">
-            <p class="aviso">É necessário que a imagem de Destaque tenha <span>970x520</span> pixels.<br> Dimensões diferentes dessa irão comprometer a qualidade visual do Site.</p>
+                <p class="aviso">É necessário que a imagem de Destaque tenha <span>970x520</span> pixels.<br> Dimensões diferentes dessa irão comprometer a qualidade visual do Site.</p>
                 <div role="tabpanel" class="tab-pane fade active in" id="upload3" aria-labelledby="upload-tab3">
                     @include('post/modal/define-upload')
                 </div>
@@ -112,11 +115,26 @@
             </div>
         </div>
         <!--=============================================================================================================================================-->
-        <div id="add" role="tabpanel"  class="tab-pane fade col-sm-12 col-md-10" aria-labelledby="add-tab">
+        <div id="add" role="tabpanel" class="tab-pane fade col-sm-12 col-md-10" aria-labelledby="add-tab">
             <!----><!----><!----><!----><!----><!----><!----><!---->
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane fade active in" id="upload" aria-labelledby="upload-tab4">
                     @include('post/modal/add')
+                </div>
+            </div>
+        </div>
+        <!--=============================================================================================================================================-->
+        <div id="organize" role="tabpanel" class="tab-pane fade col-sm-12 col-md-10" aria-labelledby="organize-tab">
+            <!----><!----><!----><!----><!----><!----><!----><!---->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade active in" id="organize-container" aria-labelledby="upload-tab4">
+                    <br>
+                    <br>
+                    <br>
+                    CARREGANDO...
+                    <br>
+                    <br>
+                    <br>
                 </div>
             </div>
         </div>

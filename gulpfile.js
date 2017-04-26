@@ -109,9 +109,11 @@ elixir(function(mix) {
     mix.copy('resources/assets/js/libs/AjaxFileUpload','public/libs/AjaxFileUpload');
     mix.copy('resources/assets/js/libs/jwysiwyg','public/libs/jwysiwyg');
     mix.copy('resources/assets/js/libs/jscrollpane','public/libs/jscrollpane');
+    mix.copy('resources/assets/js/libs/mousewheel','public/libs/mousewheel');
     mix.copy('resources/assets/js/libs/dropzone','public/libs/dropzone');
     mix.copy('resources/assets/js/libs/lightslider','public/libs/lightslider');
     mix.copy('resources/assets/js/libs/redactor','public/libs/redactor');
+    mix.copy('resources/assets/js/libs/jquery-ui-custom','public/libs/jquery-ui-custom');
     mix.copy('resources/assets/js/blog/libs/TagCanvas','public/libs/TagCanvas');
 
     

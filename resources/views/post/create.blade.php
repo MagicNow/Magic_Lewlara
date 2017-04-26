@@ -33,12 +33,18 @@ $scripts = array(
     	'src' => URL::to('/libs').'/dropzone/dropzone.js',
     ),
     6 => array(
-        'src' => URL::to('/libs').('/jscrollpane/jquery.jscrollpane.min.js')
+        'src' => URL::to('/libs').('/mousewheel/jquery.mousewheel.js')
     ),
     7 => array(
-        'src' => URL::to('/libs').('/lightslider/js/lightslider.js')
+        'src' => URL::to('/libs').('/jscrollpane/jquery.jscrollpane.min.js')
     ),
     8 => array(
+        'src' => URL::to('/libs').('/lightslider/js/lightslider.js')
+    ),
+    9 => array(
+        'src' => URL::to('/libs').('/jquery-ui-custom/jquery-ui.min.js')
+    ),
+    10 => array(
         'src' => URL::to('/').elixir('js/pages/post.js')
     )
 ); 

@@ -318,6 +318,69 @@ $(document).ready(function () {
 		});
 	});
 
+    $('#organize-tab').on('click', function(e){ 
+        e.preventDefault();
+        var cliente_id = $('#modal_cliente_id').val();
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url : baseUrl+"/post/ajax_organizeLibrary",
+            data : { 'cliente_id': cliente_id },
+            success : function(data){   
+                    $('#organize-container').html(data);
+
+                    // jscroll na galeria
+                    var container = $('#organize-container');
+                    var scroll = container.find('.gallery_scroll');
+                    var h = $(window).height()/2;
+                    var $self, $listaImagensContainer, $listaImagens;
+                    scroll.css('height', h);
+                    scroll.jScrollPane({showArrows: true,});
+                    scroll.css('width','');
+
+                    container.find(".lista-cada-imagem").draggable({
+                        helper: function(){
+                            $self = $(this);
+                            $listaImagens = $self.parents('.lista-imagens');
+                            return $self.clone()
+                                    .appendTo('.media-library')
+                                    .width($listaImagens.width() / 3)
+                                    .css({'background-size': 'cover', 'height': '46px'});
+                        },
+                        // helper: 'clone',
+                        start: function(){ //hide original when showing clone
+                            $(this).hide();
+                        },
+                        stop: function(){ //show original when hiding clone
+                            $(this).show();
+                        }
+                    });
+
+                    container.find(".media-directories-item").droppable({ //set container droppable
+                        drop: function( event, ui ) {
+                            console.log( $(event.target).data('directory') );
+                            $listaImagens.remove();
+                            ui.draggable.css({ // set absolute position of dropped object
+                                top: ui.position.top, left: ui.position.left
+                            }).appendTo($(this)); //append to container
+                        },
+                        over: function( event, ui ) {
+                            $self = $(this);
+                            $self.addClass('opened');
+                        },
+                        out: function( event, ui ) {
+                            $self = $(this);
+                            $self.removeClass('opened');
+                        }
+                    });
+                    
+                    var w = $('#organize-container .jspContainer').width() - 1;
+                    $('#organize-container .jspContainer').css('width', w); 
+                    // fim jscroll na galeria
+            }
+        });
+    });
+
     $('#modal-midias').on('click', '#library1 .lista-cada-imagem', function (e) {
         $('.limpaselect').trigger('click');
 

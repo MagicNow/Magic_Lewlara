@@ -155,7 +155,7 @@
 
 .main-tab-content{ position: relative; }
 
-#add{margin-top: 45px;}
+#add, #organize{margin-top: 45px;}
 
 #close-media-modal{
     position: absolute;
@@ -458,6 +458,34 @@ span.select-cont {
             right: 0;
             cursor: pointer;
             .noselect;
+        }
+    }
+}
+
+.media-directories {
+    &-list {
+        padding-bottom: 20px;
+    }
+
+    &-item {
+        text-align: center;
+        display: inline-block;
+        margin-right: 20px;
+
+        &-image {
+            background: url('../../img/icon-folder.png') no-repeat;
+            width: 80px;
+            height: 71px;
+            display: block;
+        }
+
+        &.opened &-image {
+            background-position: right 0;
+        }
+
+        &-text {
+            clear: both;
+            display: block;
         }
     }
 }

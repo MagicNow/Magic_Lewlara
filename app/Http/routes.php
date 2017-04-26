@@ -228,6 +228,7 @@ Route::post('disparar-notificacao', ['uses' => 'NotificationController@registrar
         Route::post('post/ajax_createLibrary', ['uses'=>'PostController@ajaxCreateLibrary', 'middleware' => 'ifAdminOrUsuario']);
         // MODAL DEFINE LIBRARY
         Route::post('post/ajax_defineLibrary', ['uses'=>'PostController@ajaxDefineLibrary', 'middleware' => 'ifAdminOrUsuario']);
+        Route::post('post/ajax_organizeLibrary', ['uses'=>'PostController@ajaxOrganizeLibrary', 'middleware' => 'ifAdminOrUsuario']);
         // MODAL UPLOAD AJAX VIA URL
         Route::post('post/ajax_upload_viaurl', ['uses'=>'PostController@ajaxUploadViaUrl', 'middleware' => 'ifAdminOrUsuario']);
         

@@ -1331,6 +1331,28 @@ class PostController extends Controller {
         return view('post.modal.define-library')->with('cliente_default', $cliente_default);
     }
 
+    public function ajaxOrganizeLibrary() {
+        $cliente_slug = Cliente::findOrFail(Input::get('cliente_id'))->slug;
+
+        $cliente_default = _clienteDefault($cliente_slug);
+
+        $folder = 'upload/posts/' . $cliente_default->id . '/';
+        $filetype = '*.*';
+        $files = glob($folder.$filetype);
+        $count = count($files);
+         
+        $filesArray = array();
+        for ($i = 0; $i < $count; $i++) {
+            $filesArray[date ('YmdHis', filemtime($files[$i]))] = $files[$i];
+        }
+         
+        krsort($filesArray);
+
+        $directories = array_filter(glob($folder . '*'), 'is_dir');
+
+        return view('post.modal.organize-library')->with(compact(['cliente_default', 'filesArray', 'directories']));
+    }
+
     public function ajaxPostDestroy()
     {
         if(empty(Request::get('posts'))){

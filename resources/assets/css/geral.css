@@ -7682,7 +7682,8 @@ body {
 .main-tab-content {
   position: relative;
 }
-#add {
+#add,
+#organize {
   margin-top: 45px;
 }
 #close-media-modal {
@@ -7970,6 +7971,27 @@ span.select-cont select {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+.media-directories-list {
+  padding-bottom: 20px;
+}
+.media-directories-item {
+  text-align: center;
+  display: inline-block;
+  margin-right: 20px;
+}
+.media-directories-item-image {
+  background: url('../../img/icon-folder.png') no-repeat;
+  width: 80px;
+  height: 71px;
+  display: block;
+}
+.media-directories-item.opened .media-directories-item-image {
+  background-position: right 0;
+}
+.media-directories-item-text {
+  clear: both;
+  display: block;
 }
 hr.galeria-separador {
   display: none;
