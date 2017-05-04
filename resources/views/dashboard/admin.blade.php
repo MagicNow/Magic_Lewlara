@@ -74,7 +74,7 @@ $header_title = 'Dashboard';
                     <div class="ultimos-posts-detalhes">
                         <p><b>{{date("d.m.Y",strtotime($recent->created_at))}}</b></p>
                         <p>{{ str_limit(_limpaHtmlJs($recent->titulo), 100, '...')}}</p>
-                        <p>{{ str_limit(_limpaHtmlJs($recent->desc), 100, '...')}}</p>
+                        <p>{{ str_limit(_limpaHtmlJs($recent->desc, false, true), 100, '...')}}</p>
                         <p>{!! link_to_action('PostController@edit','EDITAR POST',$recent->id,['class'=>'btn btn-cinza btn-pequeno align-center']) !!}</p>
                     </div>
                 </div>
@@ -105,7 +105,7 @@ $header_title = 'Dashboard';
                         <div class="ultimos-posts-detalhes">
                             <p><b>{{date("d.m.Y",strtotime($recent->created_at))}}</b></p>
                             <p>{{ str_limit(_limpaHtmlJs($recent->titulo), 100, '...')}}</p>
-                            <p>{{ str_limit(_limpaHtmlJs($recent->desc), 100, '...')}}</p>
+                            <p>{{ str_limit(_limpaHtmlJs($recent->desc, false, true), 100, '...')}}</p>
                             <p>{!! link_to_action('PostController@edit','EDITAR POST',$recent->id,['class'=>'btn btn-cinza btn-pequeno align-center']) !!}</p>
                         </div>
                     </div>

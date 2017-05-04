@@ -609,9 +609,7 @@ class PostController extends Controller {
 
         $post->fill(Request::all());
         $post->desc = $this->_replaceGallery($post->desc);
-
         $post->user_id = Auth::user()->id;
-
         $post->slug = str_slug(Request::input('titulo'));
 
         // verifica se já existe slug e adiciona dash ao final
@@ -1185,7 +1183,8 @@ class PostController extends Controller {
         // getting all of the post data
         $file = array('image' => Input::file('image'));
         $dragdrop = false;
-        if (empty(Input::file('image'))) {
+
+        if (empty($file['image'])) {
             $file = array('image' => Input::file('file'));
             $dragdrop = true;
         }
@@ -1251,6 +1250,8 @@ class PostController extends Controller {
                 die();
             }
         }
+
+        exit;
     }
 
     public function ajaxUploadViaUrl()

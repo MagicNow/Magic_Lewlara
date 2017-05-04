@@ -320,9 +320,14 @@ function _clienteDefault($cliente_default = null, $objeto = null) {
 
     //LISTANDO CATEGORIAS DO MENU
     function _blogListarCategorias($cliente_default){
-        return App\Categoria::ClienteSlug($cliente_default->slug)->orderBy('order', 'asc')->orderBy('name', 'asc')->with('post','subcategoria')->get()->filter(function ($categoria) {
-                if($categoria->post()->count()){ return true; } else { return false; }
-            });
+        return App\Categoria::ClienteSlug($cliente_default->slug)
+                            ->orderBy('order', 'asc')
+                            ->orderBy('name', 'asc')
+                            ->with('post','subcategoria')
+                            ->get()
+                            ->filter(function ($categoria) {
+                                if($categoria->post()->count()){ return true; } else { return false; }
+                            });
     }
     //LISTANDO TAGS DO SIDEBAR DO BLOG
      function _blogListarTags($cliente_default){

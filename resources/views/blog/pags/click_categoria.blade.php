@@ -22,10 +22,11 @@ $scripts = array(
                     <div class="media">
                         <div class="media-left media-top">
                             <a class="link_thumb" href="{{action('blog\HomeBlogController@click_interna',array($cliente_default->slug,$post_categoria->slug))}}" title="@if($post_categoria->midia->first()) {{$post_categoria->midia->first()->titulo}} @endif">
-                                <img class="media-object img-conteudo-post-destaque" src="
+                                {{-- <img class="media-object img-conteudo-post-destaque" src="
                                 @if($post_categoria->midia->first())
                                 {{ URL::to('/').'/'.$post_categoria->midia->first()->imagem}} 
-                                @endif" alt="...">
+                                @endif" alt="..."> --}}
+                                <div class="media-object img-conteudo-post-destaque" style="background-image: url('{{ $post_categoria->midia->first() ? URL::to('/').'/'.$post_categoria->midia->first()->imagem : ''}}');"></div>
                             </a>
                         </div>
                         <div class="media-body">

@@ -79,8 +79,8 @@ $scripts = array(
 						
 						
 
-						{!! Form::open(['action'=>'PostController@store', 'class'=>'form-horizontal', 'files' => true]) !!}
-							{!! Form::hidden('cliente_id',$cliente_default->id) !!}
+						{!! Form::open(['action'=>'PostController@store', 'class'=>'form-horizontal post-form', 'files' => true]) !!}
+							{!! Form::hidden('cliente_id', $cliente_default->id, ['id' => 'clienteId']) !!}
 							<!-- ESQUERDA -->
 							<div class="col-sm-8">
 								<div class="col-sm-11">				

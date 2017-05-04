@@ -205,7 +205,8 @@ Route::post('disparar-notificacao', ['uses' => 'NotificationController@registrar
         // AJAX RETIRAR DESTAQUE
         Route::get('post/destaques/{post_id}/retirar', ['uses'=>'PostController@ajaxPostDestaque', 'middleware' => 'ifAdminOrUsuario', 'as'=>'post_destaque_retirar']);
 
-
+    // POST UPLOAD AJAX
+    Route::post('post/ajax_upload', ['uses'=>'PostController@ajaxUpload', 'middleware' => 'ifAdminOrUsuario']);
     // NOVO POST
     Route::get('post/novo/{cliente_default?}', ['uses'=>'PostController@create', 'middleware' => 'ifAdminOrUsuario']);
     Route::post('post/novo', ['uses'=>'PostController@store', 'middleware' => 'ifAdminOrUsuario']);   
@@ -220,8 +221,6 @@ Route::post('disparar-notificacao', ['uses' => 'NotificationController@registrar
     // AJAX  POST DESTROY
     Route::post('post/ajax_postDestroy', ['uses'=>'PostController@ajaxPostDestroy', 'middleware' => 'ifAdminOrUsuario']);
     // MODAL MODAIS MODALS 
-        // POST UPLOAD AJAX
-        Route::post('post/ajax_upload', ['uses'=>'PostController@ajaxUpload', 'middleware' => 'ifAdminOrUsuario']);
         // MODAL INSERT LIBRARY
         Route::post('post/ajax_insertLibrary', ['uses'=>'PostController@ajaxInsertLibrary', 'middleware' => 'ifAdminOrUsuario']);
         // MODAL CREATE LIBRARY

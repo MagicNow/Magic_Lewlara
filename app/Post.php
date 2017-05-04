@@ -178,7 +178,7 @@ class Post extends Model {
 
     // query scope scopes
 
-    public function scopeClienteSlug($query,$slug)
+    public function scopeClienteSlug($query, $slug)
     {
         return $query->whereHas('cliente', function($query) use ($slug){
 						    $query->where('slug', $slug);

@@ -144,8 +144,8 @@ class HomeBlogController extends Controller {
 		//verificando se o usuario tem permissão para ver os posts
 		if($this->configs_geral['posts_visibilidade'] != $this->loggedUser->group->first()->id && $this->configs_geral['posts_visibilidade'] != 0 ){ 	
  	 		return Redirect::action('DashboardController@index', $this->cliente_default->slug);
- 	 		 
-	 	 }
+		}
+
 		//Adiciona na url o cliente 
 		if($this->cliente_default == null){ 	
 			return Redirect::action('blog\HomeBlogController@click_categoria', array($cliente_default->slug, $categoria->slug));
@@ -153,7 +153,10 @@ class HomeBlogController extends Controller {
 		
 		
 		if(@!$subcategoria_ativa->name){
-			$posts_categoria = Post::ClienteSlug($this->cliente_default->slug)->CategoriaSlug($categoria->slug)->orderBy('publicar_em', 'desc')->paginate($por_pagina);
+			$posts_categoria = Post::ClienteSlug($this->cliente_default->slug)
+									->CategoriaSlug($categoria->slug)
+									->orderBy('publicar_em', 'desc')
+									->paginate($por_pagina);
 			$subcategoria_ativa = null;
 		} else {
 			// filter using categoria and subcategory
@@ -163,7 +166,6 @@ class HomeBlogController extends Controller {
 									->orderBy('publicar_em', 'desc')
 									->paginate($por_pagina);
 		}
-
 		
 
 		return view('blog/pags/click_categoria',compact('posts_categoria','categoria','subcategoria_ativa'))->with(array('menu_categorias'=>$this->menu_categorias, 'cliente_default'=>$this->cliente_default,'menu_tags' =>$this->menu_tags, 'menu_arquivos'=> $this->menu_arquivos , 'top_posts' =>$this->top_posts,'irBlog'=>'blog', 'categoria_ativa' => $categoria));
