@@ -511,7 +511,7 @@ class NewsletterController extends Controller {
 
             // DISPARA E-MAIL            parametro use para passar variáveis pra dentro da função
             Mail::send('emails.blank', $dados_email, function($message) use ($dados_email)
-            {               
+            {
                 $message->to('noreply@lewlara.com')->bcc($dados_email['email_destinatario'])->subject($dados_email['assunto']); //->cc('bar@example.com');
             });
 

@@ -17,20 +17,20 @@
 );
 */
 
-// return array(
-//   "driver" => "smtp",
-//   "host" => "smtp.pulsodacomunicacao.com.br",
-//   "port" => 465,
-//   "from" => array(
-//       "address" => "no-reply@pulsodacomunicacao.com.br",
-//       "name" => "Lew'Lara\TBWA"
-//   ),
-//   'encryption' => 'ssl',
-//   "username" => "pulsodacomunicacao@pulsodacomunicacao.com.br",
-//   "password" => "ce8esPuV",
-//   "sendmail" => "/usr/sbin/sendmail -bs",
-//   "pretend" => false
-// );
+return array(
+  "driver" => "smtp",
+  "host" => "smtp.pulsodacomunicacao.com.br",
+  "port" => 465,
+  "from" => array(
+      "address" => "no-reply@pulsodacomunicacao.com.br",
+      "name" => "Lew'Lara\TBWA"
+  ),
+  'encryption' => 'ssl',
+  "username" => "pulsodacomunicacao@pulsodacomunicacao.com.br",
+  "password" => "ce8esPuV",
+  "sendmail" => "/usr/sbin/sendmail -bs",
+  "pretend" => false
+);
 
 
 

@@ -206,7 +206,7 @@ Route::post('disparar-notificacao', ['uses' => 'NotificationController@registrar
         Route::get('post/destaques/{post_id}/retirar', ['uses'=>'PostController@ajaxPostDestaque', 'middleware' => 'ifAdminOrUsuario', 'as'=>'post_destaque_retirar']);
 
     // POST UPLOAD AJAX
-    Route::post('post/ajax_upload', ['uses'=>'PostController@ajaxUpload', 'middleware' => 'ifAdminOrUsuario']);
+    Route::post('post/ajax_upload', ['uses' => 'PostController@ajaxUpload', 'middleware' => 'ifAdminOrUsuario', 'as'=>'file_upload']);
     // NOVO POST
     Route::get('post/novo/{cliente_default?}', ['uses'=>'PostController@create', 'middleware' => 'ifAdminOrUsuario']);
     Route::post('post/novo', ['uses'=>'PostController@store', 'middleware' => 'ifAdminOrUsuario']);   
@@ -261,11 +261,9 @@ Route::post('disparar-notificacao', ['uses' => 'NotificationController@registrar
 Route::get('usuario/novo', ['as' => 'usuario_novo', 'uses' => 'UserController@create', 'middleware' => 'ifAdminOrUsuario']);
 Route::post('usuario/novo', ['as' => 'usuario_novo_post', 'uses' => 'UserController@store', 'middleware' => 'ifAdminOrUsuario']);
 // RESETAR SENHA
-Route::get('usuario/resetar-senha/{default_ordenar_por?}/{default_filtrar_por_cliente?}', ['as' => 'usuario_resetar_senha', 'uses' => 'UserController@resetarSenhaUsuarios', 'middleware' => 'ifAdminOrUsuario']);
 Route::get('usuario/resetar-senha/{usuario_id}/resetar', ['as' => 'usuario_resetar_senha_post', 'uses' => 'UserController@resetarSenhaUsuariosEnvia', 'middleware' => 'ifAdminOrUsuario']);
-Route::get('usuario/resetar-senha-sucesso', [ function() {
-        return view('usuario.mensagem_sucesso_resetar_senha');
-    }, 'as' => 'usuario_resetar_senha_sucesso', 'middleware' => 'ifAdminOrUsuario']);
+Route::get('usuario/resetar-senha/{default_ordenar_por?}/{default_filtrar_por_cliente?}', ['as' => 'usuario_resetar_senha', 'uses' => 'UserController@resetarSenhaUsuarios', 'middleware' => 'ifAdminOrUsuario']);
+Route::get('usuario/resetar-senha-sucesso', [ 'as' => 'usuario_resetar_senha_sucesso', 'uses' => 'UserController@resetarSenhaUsuariosSucesso', 'middleware' => 'ifAdminOrUsuario']);
 // INFORMAÇÕES DE ACESSO
 Route::get('usuario/informacoes-de-acesso/{default_ordenar_por?}/{default_filtrar_por_cliente?}', ['as' => 'usuario_informacoes_de_acesso', 'uses' => 'UserController@informacoesDeAcesso', 'middleware' => 'ifAdminOrUsuario']);
 // USUÁRIO EDITAR

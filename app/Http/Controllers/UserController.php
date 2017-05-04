@@ -415,22 +415,26 @@ class UserController extends Controller {
 			    'usuario' => $usuario->email,
 			    'senha' => $nova_senha
 			);
-	
+
 			// DISPARA E-MAIL            parametro use para passar variáveis pra dentro da função
 			Mail::send('emails.usuario_alterado', $dados_email, function($message) use ($dados_email)
-			{               
+			{
 			    $message->to($dados_email['email_destinatario'])->subject($dados_email['assunto']); //->cc('bar@example.com');
 			});
 
 			if(count(Mail::failures()) > 0){
 			    $errors = 'Falha ao enviar e-mail para '.$dados_email['email_destinatario'];
 			}
-			return redirect()->route('usuario_resetar_senha_sucesso');
+			return redirect()->action('UserController@resetarSenhaUsuariosSucesso');
 		} else {
 			return redirect()->action('UserController@resetarSenhaUsuarios');
-		}		
+		}
 	}
 
+	public function resetarSenhaUsuariosSucesso()
+	{
+		return view('usuario.mensagem_sucesso_resetar_senha');
+	}
 
 	public function informacoesDeAcesso(Request $request, $default_ordenar_por = null, $cliente_default = null)
 	{  	

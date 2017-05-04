@@ -1184,6 +1184,11 @@ class PostController extends Controller {
         $file = array('image' => Input::file('image'));
         $dragdrop = false;
 
+        $header = array (
+            'Content-Type' => 'application/json; charset=UTF-8',
+            'charset' => 'utf-8'
+        );
+
         if (empty($file['image'])) {
             $file = array('image' => Input::file('file'));
             $dragdrop = true;
@@ -1195,25 +1200,25 @@ class PostController extends Controller {
         $validator = Validator::make($file, $imageRules);
 
         if (!(Input::get('cliente_id') > 0)) {
-            echo json_encode(array(
+            $ret = array(
                 'name' => null,
                 'error' => 'Recarregue a página e tente novamente.',
-            ));
-            die();
+            );
+
+            return response()->json($ret);
         }
 
         if ($validator->fails()) {
 
             $error_messages = $validator->messages();
-
             $error_messages_image = $error_messages->first('image');
 
-            echo json_encode(array(
+            $ret = array(
                 'name' => null,
                 'error' => $error_messages_image,
-            ));
+            );
 
-            die();
+            return response()->json($ret);
         } else {
             // checking file is valid. if it was uploaded
             if ($file['image']->isValid()) {
@@ -1222,7 +1227,6 @@ class PostController extends Controller {
 
                 $cliente_default = _clienteDefault($cliente_slug);
 
-
                 $destinationPath = 'upload/posts/' . $cliente_default->id . '/'; // upload path
                 $extension = $file['image']->getClientOriginalExtension(); // getting image extension
                 $fileName = $cliente_default->id . '-' . uniqid() . rand(1111, 9999); // renameing image
@@ -1230,28 +1234,25 @@ class PostController extends Controller {
                 $file['image']->move($destinationPath, $fileNameWithExt); // uploading file to given path
 
                 if ($dragdrop) {
-                    $ret = json_encode(array(
+                    $ret = array(
                         'id' => $fileName,
                         'url' => url($destinationPath . $fileNameWithExt),
-                    ));
+                    );
                 } else {
-                    $ret = json_encode(array(
+                    $ret = array(
                         'name' => $fileNameWithExt,
                         'error' => null,
-                    ));
+                    );
                 }
-
-                die($ret);
             } else {
-                echo json_encode(array(
+                $ret = array(
                     'name' => null,
                     'error' => 'Erro ao enviar seu arquivo',
-                ));
-                die();
+                );
             }
-        }
 
-        exit;
+            return response()->json($ret);
+        }
     }
 
     public function ajaxUploadViaUrl()
