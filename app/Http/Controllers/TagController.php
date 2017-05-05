@@ -63,8 +63,8 @@ class TagController extends Controller {
             foreach ($clientes_select as $client_option){ //transformamos a collection em um array para integração com o helper de <select> view
                $clientes_array[$client_option['slug']] = $client_option['name'];
             }
-            if(!$idcliente) $idcliente = $clientes_select[0]['slug']; //se não obtivemos da chamada da função um id de cliente, o id será o primeiro da lista de clientes disponiveis
-            $cliente_default = Cliente::where('slug','=',$idcliente)->First(); //e aqui obtemos o objeto do que será o cliente principal da view
+
+            $cliente_default = _clienteDefault($idcliente);
 
             $tagList = $cliente_default->tag()->orderBy('name')->paginate(25); //e agora pegamos a lista de tags do cliente devidamente páginada
             if(!isset($idtag)) $tag = new Tag(); //se não temos uma tag para mostrar, mostraremos esse objeto vazio para evitar o problema de Undefined variable: tag 

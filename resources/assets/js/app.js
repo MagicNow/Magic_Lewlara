@@ -13,9 +13,19 @@ $(document).ready( function() {
       }
   });
 
+  $('body').on('click', '.lslide.active', function () {
+    setTimeout(function () {
+      $('#redactor-image-link-blank').trigger('click');
+    }, 1000);
+  }).on('click', '.redactor-layer a', function () {
+    setTimeout(function () {
+      $('#redactor-image-link-blank').trigger('click');
+    }, 1000);
+  });
+  
+
   // DROPDOWN TOPO PERFIL - LOGOUT
   $("#topo-barra-perfil-dropdown-trigger").on('click', function(e){
-    console.log('#topo-barra-perfil-dropdown-trigger');
     $('#topo-barra-perfil-dropdown').toggle();
   });
 
